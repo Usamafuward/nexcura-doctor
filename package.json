@@ -1,8 +1,9 @@
 {
-  "name": "mediman-doctor",
+  "name": "nexcura-doctor",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.5.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
