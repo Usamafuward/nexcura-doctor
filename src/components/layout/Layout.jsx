@@ -1,30 +1,33 @@
 import PropTypes from "prop-types";
-import Sidebar from "@/components/layout/Sidebar";
 import Navbar from "@/components/layout/Navbar";
-import { useSidebar } from "@/context/SidebarContext";
+import TeleconsultationModal from "@/components/modals/TeleconsultationModal";
+import EHRDrawer from "@/components/modals/EHRDrawer";
+import QuickRxModal from "@/components/modals/QuickRxModal";
+import CommandPalette from "@/components/modals/CommandPalette";
+import NewAppointmentModal from "@/components/modals/NewAppointmentModal";
+import ToastContainer from "@/components/ui/ToastContainer";
 
 const Layout = ({ children }) => {
-  const { isSidebarOpen } = useSidebar();
-
   return (
-    <div className="flex min-h-screen bg-[#E7EFF9]">
-      <Sidebar />
+    <div className="min-h-screen bg-[#080B11] text-white flex flex-col relative selection:bg-[#D4FF00] selection:text-black">
+      {/* Background Soft Radial Lime Glow matching video's header ambiance */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[340px] bg-gradient-to-b from-[#D4FF00]/10 via-[#D4FF00]/2 to-transparent blur-3xl pointer-events-none" />
 
-      <div
-        className={`flex-1 transition-all duration-300 ${
-          isSidebarOpen ? "ml-64" : "ml-20"
-        }`}
-      >
-        <div
-          className={`fixed top-0 right-0 z-10 transition-all duration-300 ${
-            isSidebarOpen ? "left-64" : "left-20"
-          }`}
-        >
-          <Navbar />
-        </div>
+      {/* Floating Top Nav Bar matching video */}
+      <Navbar />
 
-        <div className="h-full overflow-y-auto pt-[80px]">{children}</div>
-      </div>
+      {/* Main Board Container */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+        {children}
+      </main>
+
+      {/* Interactive Overlays & Modals */}
+      <TeleconsultationModal />
+      <EHRDrawer />
+      <QuickRxModal />
+      <CommandPalette />
+      <NewAppointmentModal />
+      <ToastContainer />
     </div>
   );
 };

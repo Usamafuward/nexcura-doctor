@@ -9,135 +9,156 @@ import {
   LogOut,
   ChevronLast,
   ChevronFirst,
+  Plus,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
-// import { useMediaQuery } from "react-responsive";
 import logo from "../../assets/logo.png";
 import mediman from "../../assets/mediman.png";
-// import needle from "../assets/needle.png";
-import { useSidebar } from "../../context/SidebarContext";
-
-import PropTypes from "prop-types";
+import { useApp } from "../../context/SidebarContext";
 
 const Sidebar = () => {
-  const { isSidebarOpen, setSidebarOpen } = useSidebar();
+  const { isSidebarOpen, setSidebarOpen, setNewAppointmentModalOpen, showToast } = useApp();
 
   const menuItems = [
-    { icon: <Home size={20} />, label: "Dashboard", path: "/" },
+    { icon: <Home size={19} />, label: "Dashboard", path: "/" },
     {
-      icon: <Calendar size={20} />,
+      icon: <Calendar size={19} />,
       label: "Appointments",
       path: "/appointments",
+      badge: "8",
     },
-    { icon: <Users size={20} />, label: "Patients", path: "/patients" },
-    { icon: <FileText size={20} />, label: "Records", path: "/records" },
-    { icon: <Settings size={20} />, label: "Settings", path: "/settings" },
-  ];
-
-  const bottomMenuItems = [
-    { icon: <HelpCircle size={20} />, label: "Help" },
-    { icon: <LogOut size={20} />, label: "Logout" },
+    { icon: <Users size={19} />, label: "Patients & EHR", path: "/patients", badge: "1.2k" },
+    { icon: <FileText size={19} />, label: "Medical Records", path: "/records", badge: "3 new" },
+    { icon: <Settings size={19} />, label: "Clinic Settings", path: "/settings" },
   ];
 
   return (
-    <div
-      className={`fixed left-0 top-0 h-full z-20 transition-all duration-300 ease-in-out ${
-        isSidebarOpen ? "w-full sm:w-64" : "w-20"
+    <aside
+      className={`fixed left-0 top-0 h-full z-40 transition-all duration-300 ease-in-out ${
+        isSidebarOpen ? "w-64" : "w-20"
       }`}
     >
-      <div className="h-full bg-[#024AE3] flex flex-col">
-        <div className="flex items-center p-4 justify-center">
-          {isSidebarOpen ? (
-            <div className="flex items-center justify-center flex-col">
-              <img
-                src={logo}
-                alt="logo"
-                className="w-10 sm:w-12 h-10 sm:h-12"
-              />
-              <img
-                src={mediman}
-                alt="mediman"
-                className="mt-2 w-20 sm:w-24 h-5 sm:h-6"
-              />
+      <div className="h-full bg-gradient-to-b from-[#051329] via-[#091D3E] to-[#040C1A] text-white flex flex-col border-r border-slate-800/80 shadow-2xl relative">
+        {/* Brand Header */}
+        <div className="p-4 flex items-center justify-between border-b border-slate-800/60">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <div className="relative shrink-0 p-1.5 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border border-cyan-500/30 shadow-glow-cyan/20">
+              <img src={logo} alt="logo" className="w-8 h-8 object-contain" />
+              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#091D3E]" />
             </div>
-          ) : (
-            // Show only the icon when sidebar is closed
-            <div className="flex items-center justify-center flex-col">
-              <img src={logo} alt="logo" className="w-6 sm:w-8 h-6 sm:h-8" />
-              <img
-                src={mediman}
-                alt="mediman"
-                className="mt-2 w-14 sm:w-16 h-2.5 sm:h-3"
-              />
-            </div>
-          )}
+            {isSidebarOpen && (
+              <div className="flex flex-col animate-in fade-in duration-200">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-base tracking-wide bg-gradient-to-r from-white via-cyan-100 to-cyan-300 bg-clip-text text-transparent">
+                    MEDIMAN
+                  </span>
+                  <span className="text-[9px] font-mono font-bold bg-cyan-500/20 text-cyan-300 px-1.5 py-0.5 rounded-md border border-cyan-500/40">
+                    PRO
+                  </span>
+                </div>
+                <span className="text-[10px] text-slate-400 font-mono">Clinical OS v2.4</span>
+              </div>
+            )}
+          </div>
         </div>
 
+        {/* Toggle Collapse Button */}
         <button
           onClick={() => setSidebarOpen(!isSidebarOpen)}
-          className={`absolute rounded-r-md bg-[#024AE3] shadow-lg transition-all duration-300 ${
-            isSidebarOpen ? "left-64" : "left-20"
-          }`}
-          style={{ top: "12.5%", transform: "translateY(-50%)" }}
+          className="absolute -right-3.5 top-16 z-50 w-7 h-7 rounded-full bg-blue-600 hover:bg-cyan-500 text-white shadow-lg flex items-center justify-center border-2 border-slate-900 transition-all hover:scale-110"
+          title={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
         >
-          {/* <img
-            src="../assets/needle.png"
-            className="w-8 h-6"
-            alt="toggle"
-          /> */}
-          {isSidebarOpen ? (
-            <ChevronFirst size={20} className="text-white" />
-          ) : (
-            <ChevronLast size={20} className="text-white" />
-          )}
+          {isSidebarOpen ? <ChevronFirst size={14} /> : <ChevronLast size={14} />}
         </button>
 
-        <nav className="flex-1 flex flex-col pt-8 gap-2 px-3">
+        {/* Quick Action Button */}
+        <div className="px-3 pt-4">
+          <button
+            onClick={() => setNewAppointmentModalOpen(true)}
+            className={`w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold text-xs shadow-md shadow-blue-600/30 flex items-center justify-center gap-2 transition-all ${
+              !isSidebarOpen ? "px-0" : "px-3"
+            }`}
+          >
+            <Plus size={16} />
+            {isSidebarOpen && <span>New Appointment</span>}
+          </button>
+        </div>
+
+        {/* Navigation items */}
+        <nav className="flex-1 flex flex-col pt-4 gap-1.5 px-3 overflow-y-auto">
           {menuItems.map((item, index) => (
             <NavLink
               to={item.path}
               key={index}
-              className={(
-                { isActive } // isActive is a boolean provided by NavLink
-              ) =>
-                `p-3 rounded-xl flex items-center ${
+              className={({ isActive }) =>
+                `p-2.5 rounded-xl flex items-center justify-between text-xs font-medium transition-all group ${
                   !isSidebarOpen ? "justify-center" : ""
-                } transition-all duration-300 ease-in-out ${
+                } ${
                   isActive
-                    ? "bg-white text-blue-600" // Active styles
-                    : "text-white hover:bg-blue-500" // Default styles
+                    ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-600/30 font-semibold"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white"
                 }`
               }
             >
-              {item.icon}
-              {isSidebarOpen && (
-                <span className="ml-3 transition-opacity duration-300 ease-in-out opacity-100">
-                  {item.label}
+              <div className="flex items-center gap-3">
+                <div className="text-cyan-400 group-hover:scale-110 transition-transform">
+                  {item.icon}
+                </div>
+                {isSidebarOpen && <span className="truncate">{item.label}</span>}
+              </div>
+
+              {isSidebarOpen && item.badge && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-cyan-300 border border-white/10">
+                  {item.badge}
                 </span>
               )}
             </NavLink>
           ))}
         </nav>
 
+        {/* Compliance & Telemetry Status Card (when expanded) */}
+        {isSidebarOpen && (
+          <div className="mx-3 mb-4 p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-1">
+              <ShieldCheck size={14} />
+              <span>HIPAA Compliant</span>
+            </div>
+            <p className="text-[10px] text-slate-400 leading-tight">
+              256-bit Encrypted Telehealth Sync active.
+            </p>
+          </div>
+        )}
+
         {/* Bottom Menu */}
-        <div className="pb-8 flex flex-col gap-2 px-3">
-          {bottomMenuItems.map((item, index) => (
-            <button
-              key={index}
-              className={`p-3 text-white hover:bg-blue-500 rounded-xl flex items-center gap-3 transition-colors ${ !isSidebarOpen ? "justify-center" : "" }`} 
-            >
-              {item.icon}
-              {isSidebarOpen && <span>{item.label}</span>}
-            </button>
-          ))}
+        <div className="pb-4 pt-2 border-t border-slate-800/80 flex flex-col gap-1 px-3">
+          <button
+            onClick={() => showToast("Doctor Documentation & Helpdesk opened")}
+            className={`p-2.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl flex items-center gap-3 text-xs transition-colors ${
+              !isSidebarOpen ? "justify-center" : ""
+            }`}
+          >
+            <HelpCircle size={18} />
+            {isSidebarOpen && <span>Help & Protocol</span>}
+          </button>
+
+          <button
+            onClick={() => {
+              if (window.confirm("Do you wish to log out of your physician session?")) {
+                showToast("Signed out successfully.");
+              }
+            }}
+            className={`p-2.5 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl flex items-center gap-3 text-xs transition-colors ${
+              !isSidebarOpen ? "justify-center" : ""
+            }`}
+          >
+            <LogOut size={18} />
+            {isSidebarOpen && <span>End Shift / Logout</span>}
+          </button>
         </div>
       </div>
-    </div>
+    </aside>
   );
-};
-
-Sidebar.propTypes = {
-  isSidebarOpen: PropTypes.bool.isRequired,
-  setSidebarOpen: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

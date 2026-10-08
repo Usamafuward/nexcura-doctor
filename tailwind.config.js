@@ -43,19 +43,51 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        chart: {
-          1: "hsl(var(--chart-1))",
-          2: "hsl(var(--chart-2))",
-          3: "hsl(var(--chart-3))",
-          4: "hsl(var(--chart-4))",
-          5: "hsl(var(--chart-5))",
+        // Exact video palette tokens:
+        board: {
+          bg: "#080B11",
+          card: "#121722",
+          cardHover: "#161D2B",
+          border: "#1C2436",
+          borderLight: "rgba(255, 255, 255, 0.08)",
         },
+        lime: {
+          DEFAULT: "#D4FF00",
+          glow: "#CCFF00",
+          dim: "#A3D900",
+          dark: "#1F2900",
+          light: "#E5FF4D",
+        },
+        pastel: {
+          coral: "#FF6384",
+          lime: "#D4FF00",
+          lavender: "#B5A7FE",
+          cyan: "#38BDF8",
+        },
+        mutedSlate: "#8E99A8",
       },
       backgroundImage: {
-        "custom-gradient":
-          "linear-gradient(111.06deg, #004CEA 36.46%, rgba(193, 23, 85, 0.8) 93.8%, #3777FD 115.55%)",
+        "board-radial":
+          "radial-gradient(circle at 50% 0%, rgba(212, 255, 0, 0.08) 0%, transparent 60%)",
+        "card-gradient":
+          "linear-gradient(180deg, #131824 0%, #10141F 100%)",
       },
+      boxShadow: {
+        "lime-glow": "0 0 25px -4px rgba(212, 255, 0, 0.35)",
+        "lime-sm": "0 0 12px -2px rgba(212, 255, 0, 0.4)",
+        "card-dark": "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
+      },
+      animation: {
+        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "ecg-sweep": "ecgSweep 2s linear infinite",
+      },
+      keyframes: {
+        ecgSweep: {
+          "0%": { strokeDashoffset: "1000" },
+          "100%": { strokeDashoffset: "0" },
+        }
+      }
     },
   },
-  plugins: [import("tailwindcss-animate")],
+  plugins: [],
 };
