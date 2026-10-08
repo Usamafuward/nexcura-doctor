@@ -67,13 +67,13 @@ const Dashboard = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="space-y-6 pb-8"
+      className="space-y-6"
     >
       {/* 1. Physician Shift & Capacity Telemetry HUD (4 Metric Cards) */}
       <ShiftCapacityHUD />
 
       {/* 2. Top Grid: Left Summary Card (4 cols) & Dominant Signature Electric Chart (8 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         <div className="lg:col-span-4 flex flex-col">
           <LeftSummaryCard onOpenBilling={() => showToast("Opening Physician Billings modal...")} />
         </div>
@@ -82,11 +82,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* 3. Physician Fast-Action Command Dock (Quick Rx, Consult, Tele-Room, Ambient Voice Scribe, Stat Labs, Rapid Code) */}
-      <PhysicianCommandDock />
-
-      {/* 4. Bottom Grid: 3 Equal-Sized Modular Cards from the Video */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      {/* 3. Bottom Grid: 3 Equal-Sized Modular Cards from the Video */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Colorful Triage Blocks */}
         <TriageBlocksCard stats={triageStats} />
 
@@ -102,6 +99,9 @@ const Dashboard = () => {
           onOpenNotes={() => showToast("Opening Clinical Notes repository...")}
         />
       </div>
+
+      {/* 4. Physician Fast-Action Command Dock (Quick Rx, Consult, Tele-Room, Ambient Voice Scribe, Stat Labs, Rapid Code) */}
+      <PhysicianCommandDock />
 
       {/* 5. Live Bedside Telemetry Monitor (Real-Time ECG Rhythm Waveform & Biometrics HUD) */}
       <LiveBedsideTelemetryCard />
@@ -245,14 +245,7 @@ const Dashboard = () => {
             One click re-rolls the whole board
           </span>
         </motion.button>
-
-        <div className="flex items-center gap-4 text-[11px] font-mono">
-          <span className="text-slate-500 hidden sm:inline">Physician: Dr. Ramesh Varma, MD</span>
-          <span className="text-emerald-400 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Live Encrypted Sync
-          </span>
-        </div>
+        <span className="text-[11px] font-mono text-slate-500 hidden sm:inline">Physician: Dr. Ramesh Varma, MD</span>
       </motion.div>
     </motion.div>
   );

@@ -6,7 +6,7 @@ const SidebarContext = createContext();
 export const SidebarProvider = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem("mediman-theme") === "dark" || false;
+    return localStorage.getItem("nexcura-theme") === "dark" || false;
   });
   const [activeTeleconsultation, setActiveTeleconsultation] = useState(null);
   const [activeEHRDrawer, setActiveEHRDrawer] = useState(null);
@@ -47,10 +47,10 @@ export const SidebarProvider = ({ children }) => {
     const root = document.documentElement;
     if (isDarkMode) {
       root.classList.add("dark");
-      localStorage.setItem("mediman-theme", "dark");
+      localStorage.setItem("nexcura-theme", "dark");
     } else {
       root.classList.remove("dark");
-      localStorage.setItem("mediman-theme", "light");
+      localStorage.setItem("nexcura-theme", "light");
     }
   }, [isDarkMode]);
 

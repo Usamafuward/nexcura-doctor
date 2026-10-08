@@ -31,7 +31,7 @@ const Settings = () => {
     npi: "1892049102",
     dea: "BV7892341",
     hospital: "Metropolitan Academic Medical Center",
-    email: "dr.ramesh@mediman.health",
+    email: "dr.ramesh@nexcura.health",
     phone: "+1 (555) 019-2834",
   });
 

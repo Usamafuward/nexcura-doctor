@@ -208,7 +208,7 @@ export const CommandPalette = () => {
                 <span>Select: <kbd className="px-1.5 py-0.5 rounded bg-[#181F2E] border border-[#232D42] text-[10px] text-white">Enter</kbd></span>
                 <span>Close: <kbd className="px-1.5 py-0.5 rounded bg-[#181F2E] border border-[#232D42] text-[10px] text-white">ESC</kbd></span>
               </div>
-              <span className="text-[#D4FF00] font-mono text-[10px]">Mediman Clinical Core v2.4</span>
+              <span className="text-[#D4FF00] font-mono text-[10px]">Nexcura Clinical Core v2.4</span>
             </div>
           </motion.div>
         </motion.div>

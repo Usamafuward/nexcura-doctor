@@ -11,7 +11,7 @@ export const TriageBlocksCard = ({ stats }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: 0.15, ease: "easeOut" }}
-      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 text-white shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors"
+      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 text-white shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors h-full"
     >
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-xs font-bold uppercase tracking-wider text-[#8E99A8]">

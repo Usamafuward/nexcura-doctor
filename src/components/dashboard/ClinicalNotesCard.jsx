@@ -19,7 +19,7 @@ export const ClinicalNotesCard = ({ note, onOpenNotes }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: 0.25, ease: "easeOut" }}
-      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 text-white shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors"
+      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 text-white shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors h-full"
     >
       {/* Top Header */}
       <div className="flex items-center justify-between mb-2">

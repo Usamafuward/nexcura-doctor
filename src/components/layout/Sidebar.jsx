@@ -51,7 +51,7 @@ const Sidebar = () => {
               <div className="flex flex-col animate-in fade-in duration-200">
                 <div className="flex items-center gap-1.5">
                   <span className="font-extrabold text-base tracking-wide bg-gradient-to-r from-white via-cyan-100 to-cyan-300 bg-clip-text text-transparent">
-                    MEDIMAN
+                    NEXCURA
                   </span>
                   <span className="text-[9px] font-mono font-bold bg-cyan-500/20 text-cyan-300 px-1.5 py-0.5 rounded-md border border-cyan-500/40">
                     PRO

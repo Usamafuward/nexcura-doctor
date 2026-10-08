@@ -16,8 +16,8 @@ const Layout = ({ children }) => {
       {/* Floating Top Nav Bar matching video */}
       <Navbar />
 
-      {/* Main Board Container */}
-      <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+      {/* Main Board Container with reduced top gap */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-1 sm:pt-2 pb-8 relative z-10">
         {children}
       </main>
 

@@ -56,15 +56,115 @@ export const PhysicianCommandDock = () => {
     showToast("EMERGENCY: Rapid Response / Code Alert broadcast to Floor Team.", "error");
   };
 
+  const dockActions = [
+    {
+      id: "rx",
+      title: "Quick Rx Pad",
+      subtitle: "e-Prescriptions",
+      icon: Pill,
+      color: "#D4FF00",
+      bgClass: "bg-[#D4FF00]/10",
+      borderClass: "border-[#D4FF00]/20",
+      textClass: "text-[#D4FF00]",
+      hoverBorder: "hover:border-[#D4FF00]/60",
+      hoverShadow: "hover:shadow-[0_10px_24px_rgba(212,255,0,0.12)]",
+      hoverIconBg: "group-hover:bg-[#D4FF00] group-hover:text-black",
+      onClick: () => {
+        setActiveRxModal({ patientName: "Marcus Vance", problem: "Cardiology Titration" });
+        showToast("Opening Quick Rx Pad...");
+      },
+    },
+    {
+      id: "consult",
+      title: "New Consult",
+      subtitle: "Book Slot / OPD",
+      icon: CalendarPlus,
+      color: "#B5A7FE",
+      bgClass: "bg-[#B5A7FE]/10",
+      borderClass: "border-[#B5A7FE]/20",
+      textClass: "text-[#B5A7FE]",
+      hoverBorder: "hover:border-[#B5A7FE]/60",
+      hoverShadow: "hover:shadow-[0_10px_24px_rgba(181,167,254,0.14)]",
+      hoverIconBg: "group-hover:bg-[#B5A7FE] group-hover:text-black",
+      onClick: () => setNewAppointmentModalOpen(true),
+    },
+    {
+      id: "tele",
+      title: "Tele-Room",
+      subtitle: "HD Encrypted Call",
+      icon: Video,
+      color: "#38BDF8",
+      bgClass: "bg-[#38BDF8]/10",
+      borderClass: "border-[#38BDF8]/20",
+      textClass: "text-[#38BDF8]",
+      hoverBorder: "hover:border-[#38BDF8]/60",
+      hoverShadow: "hover:shadow-[0_10px_24px_rgba(56,189,248,0.14)]",
+      hoverIconBg: "group-hover:bg-[#38BDF8] group-hover:text-black",
+      onClick: () =>
+        setActiveTeleconsultation({
+          patientName: "Kamalesh Patel",
+          age: 32,
+          problem: "Diabetes Review",
+        }),
+    },
+    {
+      id: "scribe",
+      title: "Ambient Scribe",
+      subtitle: "Live Voice SOAP",
+      icon: Mic,
+      color: "#10B981",
+      bgClass: "bg-[#10B981]/10",
+      borderClass: "border-[#10B981]/20",
+      textClass: "text-[#10B981]",
+      hoverBorder: "hover:border-[#10B981]/60",
+      hoverShadow: "hover:shadow-[0_10px_24px_rgba(16,185,129,0.14)]",
+      hoverIconBg: "group-hover:bg-[#10B981] group-hover:text-black",
+      onClick: () => setScribeOpen(true),
+    },
+    {
+      id: "lab",
+      title: "Stat Lab Order",
+      subtitle: "Pathology Panel",
+      icon: FlaskConical,
+      color: "#F59E0B",
+      bgClass: "bg-[#F59E0B]/10",
+      borderClass: "border-[#F59E0B]/20",
+      textClass: "text-[#F59E0B]",
+      hoverBorder: "hover:border-[#F59E0B]/60",
+      hoverShadow: "hover:shadow-[0_10px_24px_rgba(245,158,11,0.14)]",
+      hoverIconBg: "group-hover:bg-[#F59E0B] group-hover:text-black",
+      onClick: () => setLabOrderOpen(true),
+    },
+    {
+      id: "code",
+      title: "Rapid Response",
+      subtitle: "Code Team Alert",
+      icon: Flame,
+      color: "#FF6384",
+      bgClass: "bg-[#FF6384]/10",
+      borderClass: "border-[#FF6384]/20",
+      textClass: "text-[#FF6384]",
+      hoverBorder: "hover:border-[#FF6384]/60",
+      hoverShadow: "hover:shadow-[0_10px_24px_rgba(255,99,132,0.16)]",
+      hoverIconBg: "group-hover:bg-[#FF6384] group-hover:text-black",
+      onClick: handleCodeAlert,
+    },
+  ];
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+  };
+
   return (
     <>
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="rounded-3xl bg-[#121722] border border-[#1C2436] p-4 sm:p-5 shadow-2xl hover:border-[#28354E] transition-colors"
+        className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 sm:p-6 shadow-2xl hover:border-[#28354E] transition-colors"
       >
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-[#0D111A] border border-[#1C2436] flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-[#D4FF00]" />
@@ -89,124 +189,46 @@ export const PhysicianCommandDock = () => {
           </button>
         </div>
 
-        {/* 6 Action Buttons Grid */}
+        {/* 6 Action Buttons Grid with Smooth Spring Physics & Ethereal Glow */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {/* Action 1: Write Rx */}
-          <motion.button
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => {
-              setActiveRxModal({ patientName: "Marcus Vance", problem: "Cardiology Titration" });
-              showToast("Opening Quick Rx Pad...");
-            }}
-            className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#D4FF00]/50 transition-all text-left flex flex-col justify-between group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-[#D4FF00]/10 border border-[#D4FF00]/20 flex items-center justify-center mb-2 group-hover:bg-[#D4FF00] group-hover:text-black transition-colors">
-              <Pill className="w-4 h-4 text-[#D4FF00] group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-white block group-hover:text-[#D4FF00] transition-colors">
-                Quick Rx Pad
-              </span>
-              <span className="text-[10px] text-[#8E99A8] font-mono">e-Prescriptions</span>
-            </div>
-          </motion.button>
+          {dockActions.map((action) => (
+            <motion.button
+              key={action.id}
+              variants={buttonVariants}
+              whileHover={{ y: -4, scale: 1.02 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{
+                type: "spring",
+                stiffness: 420,
+                damping: 24,
+              }}
+              onClick={action.onClick}
+              className={`p-3.5 sm:p-4 rounded-2xl bg-[#0D111A] border border-[#1C2436] ${action.hoverBorder} ${action.hoverShadow} transition-[border-color,box-shadow] duration-300 ease-out text-left flex flex-col justify-between group cursor-pointer relative overflow-hidden`}
+            >
+              {/* Ethereal Ambient Radial Glow on Hover */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle at top left, ${action.color}15, transparent 70%)`,
+                }}
+              />
 
-          {/* Action 2: New Appointment */}
-          <motion.button
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => setNewAppointmentModalOpen(true)}
-            className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#B5A7FE]/50 transition-all text-left flex flex-col justify-between group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-[#B5A7FE]/10 border border-[#B5A7FE]/20 flex items-center justify-center mb-2 group-hover:bg-[#B5A7FE] group-hover:text-black transition-colors">
-              <CalendarPlus className="w-4 h-4 text-[#B5A7FE] group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-white block group-hover:text-[#B5A7FE] transition-colors">
-                New Consult
-              </span>
-              <span className="text-[10px] text-[#8E99A8] font-mono">Book Slot / OPD</span>
-            </div>
-          </motion.button>
+              <div
+                className={`w-9 h-9 rounded-xl ${action.bgClass} border ${action.borderClass} flex items-center justify-center mb-3 ${action.hoverIconBg} transition-all duration-300 ease-out group-hover:scale-105 group-hover:rotate-3 shadow-sm`}
+              >
+                <action.icon className={`w-4 h-4 ${action.textClass} group-hover:text-black transition-colors duration-300`} />
+              </div>
 
-          {/* Action 3: Tele-Room */}
-          <motion.button
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() =>
-              setActiveTeleconsultation({
-                patientName: "Kamalesh Patel",
-                age: 32,
-                problem: "Diabetes Review",
-              })
-            }
-            className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#38BDF8]/50 transition-all text-left flex flex-col justify-between group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-[#38BDF8]/10 border border-[#38BDF8]/20 flex items-center justify-center mb-2 group-hover:bg-[#38BDF8] group-hover:text-black transition-colors">
-              <Video className="w-4 h-4 text-[#38BDF8] group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-white block group-hover:text-[#38BDF8] transition-colors">
-                Tele-Room
-              </span>
-              <span className="text-[10px] text-[#8E99A8] font-mono">HD Encrypted Call</span>
-            </div>
-          </motion.button>
-
-          {/* Action 4: Ambient AI Scribe */}
-          <motion.button
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => setScribeOpen(true)}
-            className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#10B981]/50 transition-all text-left flex flex-col justify-between group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-[#10B981]/10 border border-[#10B981]/20 flex items-center justify-center mb-2 group-hover:bg-[#10B981] group-hover:text-black transition-colors">
-              <Mic className="w-4 h-4 text-[#10B981] group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-white block group-hover:text-[#10B981] transition-colors">
-                Ambient Scribe
-              </span>
-              <span className="text-[10px] text-[#8E99A8] font-mono">Live Voice SOAP</span>
-            </div>
-          </motion.button>
-
-          {/* Action 5: Stat Lab Orders */}
-          <motion.button
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => setLabOrderOpen(true)}
-            className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#F59E0B]/50 transition-all text-left flex flex-col justify-between group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center mb-2 group-hover:bg-[#F59E0B] group-hover:text-black transition-colors">
-              <FlaskConical className="w-4 h-4 text-[#F59E0B] group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-white block group-hover:text-[#F59E0B] transition-colors">
-                Stat Lab Order
-              </span>
-              <span className="text-[10px] text-[#8E99A8] font-mono">Pathology Panel</span>
-            </div>
-          </motion.button>
-
-          {/* Action 6: Code Emergency */}
-          <motion.button
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={handleCodeAlert}
-            className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#FF6384]/50 transition-all text-left flex flex-col justify-between group"
-          >
-            <div className="w-8 h-8 rounded-xl bg-[#FF6384]/10 border border-[#FF6384]/20 flex items-center justify-center mb-2 group-hover:bg-[#FF6384] group-hover:text-black transition-colors">
-              <Flame className="w-4 h-4 text-[#FF6384] group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span className="text-xs font-bold text-[#FF6384] block transition-colors">
-                Rapid Response
-              </span>
-              <span className="text-[10px] text-[#8E99A8] font-mono">Code Team Alert</span>
-            </div>
-          </motion.button>
+              <div className="relative z-10">
+                <span className="text-xs font-bold text-white block transition-colors duration-200">
+                  {action.title}
+                </span>
+                <span className="text-[10px] text-[#8E99A8] font-mono block mt-0.5 group-hover:text-slate-300 transition-colors duration-200">
+                  {action.subtitle}
+                </span>
+              </div>
+            </motion.button>
+          ))}
         </div>
       </motion.div>
 

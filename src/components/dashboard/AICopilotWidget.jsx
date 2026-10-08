@@ -103,7 +103,7 @@ export const AICopilotWidget = () => {
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-extrabold text-sm sm:text-base tracking-wide text-white">
-                MEDIMAN NEURAL COPILOT
+                NEXCURA NEURAL COPILOT
               </h3>
               <span className="text-[10px] font-mono uppercase bg-[#D4FF00]/15 text-[#D4FF00] px-2 py-0.5 rounded-full border border-[#D4FF00]/30 font-bold">
                 LLM v4.5 Med

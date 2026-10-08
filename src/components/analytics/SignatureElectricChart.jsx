@@ -62,8 +62,8 @@ export const SignatureElectricChart = ({ onReroll }) => {
   const points = currentData.points;
 
   // SVG Geometry
-  const width = 800;
-  const height = 260;
+  const width = 1000;
+  const height = 280;
   const paddingX = 20;
   const paddingBottom = 40;
   const paddingTop = 20;
@@ -104,7 +104,7 @@ export const SignatureElectricChart = ({ onReroll }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-      className="relative rounded-3xl bg-[#121722] border border-[#1C2436] p-6 text-white shadow-2xl flex flex-col justify-between overflow-hidden hover:border-[#28354E] transition-colors"
+      className="relative rounded-3xl bg-[#121722] border border-[#1C2436] p-5 sm:p-6 text-white shadow-2xl flex flex-col justify-between overflow-hidden hover:border-[#28354E] transition-colors h-full"
     >
       {/* Soft background radial ambient glow in top corner */}
       <div className="absolute top-0 right-1/4 w-96 h-48 bg-[#D4FF00]/5 rounded-full blur-3xl pointer-events-none" />
@@ -270,10 +270,10 @@ export const SignatureElectricChart = ({ onReroll }) => {
       </div>
 
       {/* The Signature Chart with Vertical Equalizer Bars + Glowing Spline */}
-      <div className="relative w-full overflow-hidden my-2 select-none">
+      <div className="relative w-full overflow-hidden my-auto flex-1 flex flex-col justify-center select-none py-1">
         <svg
           viewBox={`0 0 ${width} ${height}`}
-          className="w-full h-56 sm:h-64 overflow-visible cursor-crosshair"
+          className="w-full h-52 sm:h-56 md:h-64 overflow-visible cursor-crosshair"
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const mouseX = ((e.clientX - rect.left) / rect.width) * width;

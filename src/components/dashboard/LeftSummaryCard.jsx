@@ -1,4 +1,4 @@
-import { ArrowUpRight, TrendingUp, Users, Video, Activity, FileText } from "lucide-react";
+import { ArrowUpRight, TrendingUp, Users, Video, Activity, FileText, Target } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -31,11 +31,11 @@ export const LeftSummaryCard = ({ onOpenBilling }) => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-6 text-white shadow-2xl flex flex-col justify-between h-full hover:border-[#28354E] transition-colors"
+      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 sm:p-6 text-white shadow-2xl flex flex-col justify-between h-full hover:border-[#28354E] transition-colors"
     >
-      {/* Top Header & Main Big Metric */}
+      {/* 1. Top Header & Main Big Metric */}
       <div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[#8E99A8]">
               Physician Performance
@@ -78,56 +78,80 @@ export const LeftSummaryCard = ({ onOpenBilling }) => {
         </div>
       </div>
 
-      {/* 2x2 Grid of Sub-Metrics */}
-      <div className="grid grid-cols-2 gap-3 pt-6 mt-6 border-t border-[#1C2436]">
+      {/* 2. Middle: Shift Target Progress & Multi-Segment Pacing Bar */}
+      <div className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] my-2 sm:my-3">
+        <div className="flex items-center justify-between text-xs font-mono mb-2">
+          <span className="text-[#8E99A8] flex items-center gap-1.5 text-[11px] font-semibold">
+            <Target className="w-3.5 h-3.5 text-[#D4FF00]" />
+            Shift Goal Pace
+          </span>
+          <span className="text-white font-bold text-xs">
+            $32.4k <span className="text-[#8E99A8] font-normal text-[11px]">/ $40k target</span>
+          </span>
+        </div>
+        {/* Multi-segmented neon bar corresponding to the 4 categories */}
+        <div className="w-full h-2 rounded-full bg-[#182030] overflow-hidden flex gap-0.5 p-0.5">
+          <div style={{ width: "58%" }} className="h-full rounded-sm bg-[#D4FF00]" title="In-Clinic 58%" />
+          <div style={{ width: "17%" }} className="h-full rounded-sm bg-[#38BDF8]" title="Telehealth 17%" />
+          <div style={{ width: "15%" }} className="h-full rounded-sm bg-[#B5A7FE]" title="Lab Orders 15%" />
+          <div style={{ width: "10%" }} className="h-full rounded-sm bg-[#FF6384]" title="Rx Refills 10%" />
+        </div>
+        <div className="flex items-center justify-between text-[10px] font-mono text-[#8E99A8] mt-2">
+          <span className="text-[#D4FF00] font-semibold">81.0% Achieved</span>
+          <span className="text-slate-400">Avg $348 / encounter</span>
+        </div>
+      </div>
+
+      {/* 3. 2x2 Grid of Sub-Metrics */}
+      <div className="grid grid-cols-2 gap-3">
         {/* Cell 1 */}
         <motion.div
           variants={itemVariants}
-          whileHover={{ y: -3, scale: 1.02 }}
+          whileHover={{ y: -3 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => navigate("/patients")}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#D4FF00]/40 transition-colors cursor-pointer group"
+          className="p-3 sm:p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#D4FF00]/40 transition-colors cursor-pointer group flex flex-col justify-between"
         >
           <div className="flex items-center justify-between text-[11px] text-[#8E99A8] mb-1">
             <span>In-Clinic</span>
             <Users className="w-3 h-3 text-[#D4FF00] group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-lg font-bold font-mono text-white">$4,634.30</div>
+          <div className="text-base sm:text-lg font-bold font-mono text-white">$4,634.30</div>
           <div className="text-[10px] text-emerald-400 font-mono mt-0.5">+8.1% vs avg</div>
         </motion.div>
 
         {/* Cell 2 */}
         <motion.div
           variants={itemVariants}
-          whileHover={{ y: -3, scale: 1.02 }}
+          whileHover={{ y: -3 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setActiveTeleconsultation({ patientName: "Kamalesh Patel", age: 32, problem: "Diabetes Review" })}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#38BDF8]/40 transition-colors cursor-pointer group"
+          className="p-3 sm:p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#38BDF8]/40 transition-colors cursor-pointer group flex flex-col justify-between"
         >
           <div className="flex items-center justify-between text-[11px] text-[#8E99A8] mb-1">
             <span>Telehealth</span>
             <Video className="w-3 h-3 text-[#38BDF8] group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-lg font-bold font-mono text-white">$1,357.65</div>
+          <div className="text-base sm:text-lg font-bold font-mono text-white">$1,357.65</div>
           <div className="text-[10px] text-cyan-400 font-mono mt-0.5">14 completed</div>
         </motion.div>
 
         {/* Cell 3 */}
         <motion.div
           variants={itemVariants}
-          whileHover={{ y: -3, scale: 1.02 }}
+          whileHover={{ y: -3 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => showToast("6 lab orders currently undergoing automated pathology processing.")}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#B5A7FE]/40 transition-colors cursor-pointer group"
+          className="p-3 sm:p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#B5A7FE]/40 transition-colors cursor-pointer group flex flex-col justify-between"
         >
           <div className="flex items-center justify-between text-[11px] text-[#8E99A8] mb-1">
             <span>Lab Orders</span>
             <FileText className="w-3 h-3 text-[#B5A7FE] group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-lg font-bold font-mono text-white">$1,892.10</div>
+          <div className="text-base sm:text-lg font-bold font-mono text-white">$1,892.10</div>
           <div className="text-[10px] text-purple-400 font-mono mt-0.5">6 pending</div>
         </motion.div>
 
@@ -138,13 +162,13 @@ export const LeftSummaryCard = ({ onOpenBilling }) => {
           whileTap={{ scale: 0.98 }}
           onClick={() => setActiveRxModal({ patientName: "Marcus Vance", problem: "Cardiology Titration" })}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#FF6384]/40 transition-colors cursor-pointer group"
+          className="p-3 sm:p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#FF6384]/40 transition-colors cursor-pointer group flex flex-col justify-between"
         >
           <div className="flex items-center justify-between text-[11px] text-[#8E99A8] mb-1">
             <span>Rx Refills</span>
             <Activity className="w-3 h-3 text-[#FF6384] group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-lg font-bold font-mono text-white">$1,399.45</div>
+          <div className="text-base sm:text-lg font-bold font-mono text-white">$1,399.45</div>
           <div className="text-[10px] text-rose-400 font-mono mt-0.5">100% verified</div>
         </motion.div>
       </div>
