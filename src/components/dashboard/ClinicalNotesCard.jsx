@@ -1,6 +1,6 @@
 import { Sparkles, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 import PropTypes from "prop-types";
 
 export const ClinicalNotesCard = ({ note, onOpenNotes }) => {

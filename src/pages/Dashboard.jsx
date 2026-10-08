@@ -11,7 +11,7 @@ import ShiftCapacityHUD from "@/components/dashboard/ShiftCapacityHUD";
 import PhysicianCommandDock from "@/components/dashboard/PhysicianCommandDock";
 import LiveBedsideTelemetryCard from "@/components/dashboard/LiveBedsideTelemetryCard";
 import AICopilotWidget from "@/components/dashboard/AICopilotWidget";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 const Dashboard = () => {
   const { setActiveTeleconsultation, setActiveEHRDrawer, showToast } = useApp();

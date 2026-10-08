@@ -14,7 +14,7 @@ import {
   UserCheck
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 const INITIAL_ALERTS = [
   {

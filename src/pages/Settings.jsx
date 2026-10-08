@@ -15,7 +15,7 @@ import {
   Volume2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 import doctor from "../assets/doctor.png";
 
 const Settings = () => {

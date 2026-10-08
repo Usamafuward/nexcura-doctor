@@ -9,7 +9,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 export const ShiftCapacityHUD = () => {
   const { showToast, setActiveEHRDrawer } = useApp();

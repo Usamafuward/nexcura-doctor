@@ -2,7 +2,7 @@ import { ArrowUpRight, TrendingUp, Users, Video, Activity, FileText, Target } fr
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 export const LeftSummaryCard = ({ onOpenBilling }) => {
   const navigate = useNavigate();

@@ -17,7 +17,7 @@ import {
   Maximize2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 export const TeleconsultationModal = () => {
   const { activeTeleconsultation, setActiveTeleconsultation, showToast } = useApp();

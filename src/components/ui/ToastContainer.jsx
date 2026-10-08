@@ -1,4 +1,4 @@
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 import { CheckCircle2, AlertCircle, Info } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 

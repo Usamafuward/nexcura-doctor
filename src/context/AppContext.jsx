@@ -1,10 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const SidebarContext = createContext();
+const AppContext = createContext();
 
-export const SidebarProvider = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+export const AppProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("nexcura-theme") === "dark" || false;
   });
@@ -87,10 +86,8 @@ export const SidebarProvider = ({ children }) => {
   };
 
   return (
-    <SidebarContext.Provider
+    <AppContext.Provider
       value={{
-        isSidebarOpen,
-        setSidebarOpen,
         isDarkMode,
         toggleDarkMode,
         activeTeleconsultation,
@@ -113,21 +110,22 @@ export const SidebarProvider = ({ children }) => {
       }}
     >
       {children}
-    </SidebarContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-SidebarProvider.propTypes = {
+AppProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const useSidebar = () => {
-  const context = useContext(SidebarContext);
+export const useApp = () => {
+  const context = useContext(AppContext);
   if (context === undefined) {
-    throw new Error("useSidebar must be used within a SidebarProvider");
+    throw new Error("useApp must be used within an AppProvider");
   }
   return context;
 };
 
-// Alias for broader app state
-export const useApp = useSidebar;
+export const useAppContext = useApp;
+
+export default AppContext;

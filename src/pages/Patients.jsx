@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   Filter,
@@ -16,13 +16,15 @@ import {
   Video
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
+import { Pagination } from "@/components/common/Pagination";
 
 const Patients = () => {
   const { setActiveEHRDrawer, setActiveRxModal, setActiveTeleconsultation, showToast } = useApp();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCohort, setFilterCohort] = useState("all"); // 'all', 'high-risk', 'diabetes', 'cardio'
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [patients, setPatients] = useState([
     {
@@ -109,7 +111,96 @@ const Patients = () => {
       allergies: ["Iodine Contrast"],
       medications: 5,
     },
+    {
+      id: "P007",
+      name: "Sarah Jenkins",
+      age: 41,
+      gender: "Female",
+      bloodGroup: "B-",
+      contact: "+1 234-567-8907",
+      lastVisit: "01 Oct 2026",
+      condition: "Post-Ischemic Transient Episode",
+      risk: "high",
+      status: "Active",
+      allergies: ["Codeine"],
+      medications: 3,
+    },
+    {
+      id: "P008",
+      name: "Elena Rostova",
+      age: 53,
+      gender: "Female",
+      bloodGroup: "O+",
+      contact: "+1 234-567-8908",
+      lastVisit: "24 Sep 2026",
+      condition: "Secondary Hyperparathyroidism",
+      risk: "medium",
+      status: "Active",
+      allergies: ["Latex"],
+      medications: 2,
+    },
+    {
+      id: "P009",
+      name: "Marcus Sterling",
+      age: 38,
+      gender: "Male",
+      bloodGroup: "A+",
+      contact: "+1 234-567-8909",
+      lastVisit: "19 Sep 2026",
+      condition: "Hypertrophic Cardiomyopathy",
+      risk: "high",
+      status: "Active",
+      allergies: ["None known"],
+      medications: 3,
+    },
+    {
+      id: "P010",
+      name: "Sophia Martinez",
+      age: 49,
+      gender: "Female",
+      bloodGroup: "AB-",
+      contact: "+1 234-567-8910",
+      lastVisit: "12 Sep 2026",
+      condition: "Refractory Hypertension",
+      risk: "medium",
+      status: "Active",
+      allergies: ["ACE Inhibitors"],
+      medications: 4,
+    },
+    {
+      id: "P011",
+      name: "Liam Vance",
+      age: 62,
+      gender: "Male",
+      bloodGroup: "B+",
+      contact: "+1 234-567-8911",
+      lastVisit: "08 Sep 2026",
+      condition: "Paroxysmal Atrial Fibrillation",
+      risk: "critical",
+      status: "Active",
+      allergies: ["Warfarin"],
+      medications: 5,
+    },
+    {
+      id: "P012",
+      name: "Grace Harper",
+      age: 35,
+      gender: "Female",
+      bloodGroup: "O+",
+      contact: "+1 234-567-8912",
+      lastVisit: "02 Sep 2026",
+      condition: "Familial Hypercholesterolemia",
+      risk: "low",
+      status: "Active",
+      allergies: ["None known"],
+      medications: 1,
+    },
   ]);
+
+  // Reset page when search query or filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, filterCohort]);
 
   const filteredPatients = patients.filter((pt) => {
     const matchesSearch =
@@ -125,6 +216,13 @@ const Patients = () => {
       return pt.condition.toLowerCase().includes("hypertension") || pt.condition.toLowerCase().includes("artery") || pt.condition.toLowerCase().includes("angina");
     return true;
   });
+
+  const ITEMS_PER_PAGE = 8;
+  const totalPages = Math.max(1, Math.ceil(filteredPatients.length / ITEMS_PER_PAGE));
+  const paginatedPatients = filteredPatients.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <motion.div
@@ -257,116 +355,134 @@ const Patients = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1C2436]/60">
-              {filteredPatients.map((patient) => (
-                <motion.tr
-                  key={patient.id}
-                  whileHover={{ backgroundColor: "rgba(24, 31, 46, 0.45)" }}
-                  className="transition-colors group cursor-pointer"
-                  onClick={() => setActiveEHRDrawer(patient)}
-                >
-                  {/* Name & MRN */}
-                  <td className="py-3.5 px-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-[#0D111A] border border-[#1C2436] group-hover:border-[#D4FF00]/50 text-[#D4FF00] flex items-center justify-center font-extrabold text-xs shadow-sm transition-colors">
-                        {patient.name.slice(0, 2).toUpperCase()}
-                      </div>
-                      <div>
-                        <div className="font-bold text-white group-hover:text-[#D4FF00] transition-colors">
-                          {patient.name}
+              {filteredPatients.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="py-12 text-center text-[#8E99A8] text-xs">
+                    No matching patients found in this clinical cohort.
+                  </td>
+                </tr>
+              ) : (
+                paginatedPatients.map((patient) => (
+                  <motion.tr
+                    key={patient.id}
+                    whileHover={{ backgroundColor: "rgba(24, 31, 46, 0.45)" }}
+                    className="transition-colors group cursor-pointer"
+                    onClick={() => setActiveEHRDrawer(patient)}
+                  >
+                    {/* Name & MRN */}
+                    <td className="py-3.5 px-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#0D111A] border border-[#1C2436] group-hover:border-[#D4FF00]/50 text-[#D4FF00] flex items-center justify-center font-extrabold text-xs shadow-sm transition-colors">
+                          {patient.name.slice(0, 2).toUpperCase()}
                         </div>
-                        <div className="text-[10px] text-[#8E99A8] font-mono">
-                          {patient.id} • {patient.age}y, {patient.gender} • Blood {patient.bloodGroup}
+                        <div>
+                          <div className="font-bold text-white group-hover:text-[#D4FF00] transition-colors">
+                            {patient.name}
+                          </div>
+                          <div className="text-[10px] text-[#8E99A8] font-mono">
+                            {patient.id} • {patient.age}y, {patient.gender} • Blood {patient.bloodGroup}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  {/* Primary Diagnosis */}
-                  <td className="py-3.5 px-3">
-                    <div className="font-medium text-slate-200">
-                      {patient.condition}
-                    </div>
-                    <div className="text-[10px] text-[#D4FF00] mt-0.5">
-                      {patient.medications} Active Prescriptions
-                    </div>
-                  </td>
-
-                  {/* Allergy Warnings */}
-                  <td className="py-3.5 px-3">
-                    {patient.allergies[0] === "None known" ? (
-                      <span className="text-[10px] text-[#8E99A8] font-mono">No known allergies (NKDA)</span>
-                    ) : (
-                      <div className="flex items-center gap-1.5 text-[#FF6384] font-medium">
-                        <AlertTriangle className="w-3.5 h-3.5 shrink-0 stroke-[2.5]" />
-                        <span className="text-[11px] font-semibold">{patient.allergies.join(", ")}</span>
+                    {/* Primary Diagnosis */}
+                    <td className="py-3.5 px-3">
+                      <div className="font-medium text-slate-200">
+                        {patient.condition}
                       </div>
-                    )}
-                  </td>
+                      <div className="text-[10px] text-[#D4FF00] mt-0.5">
+                        {patient.medications} Active Prescriptions
+                      </div>
+                    </td>
 
-                  {/* Contact & Last Visit */}
-                  <td className="py-3.5 px-3">
-                    <div className="font-mono text-slate-300 text-[11px]">
-                      {patient.contact}
-                    </div>
-                    <div className="text-[10px] text-[#8E99A8]">
-                      Last visit: {patient.lastVisit}
-                    </div>
-                  </td>
+                    {/* Allergy Warnings */}
+                    <td className="py-3.5 px-3">
+                      {patient.allergies[0] === "None known" ? (
+                        <span className="text-[10px] text-[#8E99A8] font-mono">No known allergies (NKDA)</span>
+                      ) : (
+                        <div className="flex items-center gap-1.5 text-[#FF6384] font-medium">
+                          <AlertTriangle className="w-3.5 h-3.5 shrink-0 stroke-[2.5]" />
+                          <span className="text-[11px] font-semibold">{patient.allergies.join(", ")}</span>
+                        </div>
+                      )}
+                    </td>
 
-                  {/* Risk Level */}
-                  <td className="py-3.5 px-3">
-                    <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${
-                        patient.risk === "critical"
-                          ? "bg-[#FF6384] text-black font-extrabold shadow-sm"
-                          : patient.risk === "high"
-                          ? "bg-amber-950 text-amber-300 border border-amber-800"
-                          : "bg-emerald-950 text-emerald-300 border border-emerald-800"
-                      }`}
-                    >
-                      {patient.risk}
-                    </span>
-                  </td>
+                    {/* Contact & Last Visit */}
+                    <td className="py-3.5 px-3">
+                      <div className="font-mono text-slate-300 text-[11px]">
+                        {patient.contact}
+                      </div>
+                      <div className="text-[10px] text-[#8E99A8]">
+                        Last visit: {patient.lastVisit}
+                      </div>
+                    </td>
 
-                  {/* Actions */}
-                  <td className="py-3.5 px-3 text-right" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex items-center justify-end gap-1.5">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => setActiveTeleconsultation(patient)}
-                        className="p-2 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-[#D4FF00] border border-[#232D42] transition-colors"
-                        title="Start Telehealth Session"
+                    {/* Risk Level */}
+                    <td className="py-3.5 px-3">
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${
+                          patient.risk === "critical"
+                            ? "bg-[#FF6384] text-black font-extrabold shadow-sm"
+                            : patient.risk === "high"
+                            ? "bg-amber-950 text-amber-300 border border-amber-800"
+                            : "bg-emerald-950 text-emerald-300 border border-emerald-800"
+                        }`}
                       >
-                        <Video className="w-4 h-4" />
-                      </motion.button>
+                        {patient.risk}
+                      </span>
+                    </td>
 
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => setActiveRxModal(patient)}
-                        className="p-2 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-[#38BDF8] border border-[#232D42] transition-colors"
-                        title="Issue Prescription"
-                      >
-                        <Pill className="w-4 h-4" />
-                      </motion.button>
+                    {/* Actions */}
+                    <td className="py-3.5 px-3 text-right" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setActiveTeleconsultation(patient)}
+                          className="p-2 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-[#D4FF00] border border-[#232D42] transition-colors"
+                          title="Start Telehealth Session"
+                        >
+                          <Video className="w-4 h-4" />
+                        </motion.button>
 
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => setActiveEHRDrawer(patient)}
-                        className="px-3.5 py-1.5 rounded-full bg-[#D4FF00] hover:bg-[#CCFF00] text-black font-bold text-xs flex items-center gap-1 shadow-lime-sm transition-all"
-                      >
-                        <span>EHR Chart</span>
-                        <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                      </motion.button>
-                    </div>
-                  </td>
-                </motion.tr>
-              ))}
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setActiveRxModal(patient)}
+                          className="p-2 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-[#38BDF8] border border-[#232D42] transition-colors"
+                          title="Issue Prescription"
+                        >
+                          <Pill className="w-4 h-4" />
+                        </motion.button>
+
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setActiveEHRDrawer(patient)}
+                          className="px-3.5 py-1.5 rounded-full bg-[#D4FF00] hover:bg-[#CCFF00] text-black font-bold text-xs flex items-center gap-1 shadow-lime-sm transition-all"
+                        >
+                          <span>EHR Chart</span>
+                          <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                        </motion.button>
+                      </div>
+                    </td>
+                  </motion.tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
+
+        {/* Pagination Controls */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredPatients.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+          onPageChange={setCurrentPage}
+          itemName="patients"
+        />
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FileText,
   Download,
@@ -16,7 +16,8 @@ import {
   Activity
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
+import { Pagination } from "@/components/common/Pagination";
 
 const Records = () => {
   const { showToast } = useApp();
@@ -24,6 +25,7 @@ const Records = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all"); // 'all', 'lab', 'imaging', 'rx', 'discharge'
   const [previewRecord, setPreviewRecord] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [recordsList, setRecordsList] = useState([
     {
@@ -98,7 +100,60 @@ const Records = () => {
       status: "Verified",
       findings: "No acute intracranial hemorrhage or mass effect. Mild microvascular white matter changes, consistent with migraine.",
     },
+    {
+      id: "REC-907",
+      patientName: "Marcus Sterling",
+      patientId: "#MED-3891",
+      title: "Cardiac MRI 3D Myocardial Perfusion",
+      category: "imaging",
+      date: "22 Sep 2026",
+      doctor: "Dr. Ramesh Varma, MD",
+      size: "24.2 MB",
+      status: "Verified",
+      findings: "Asymmetric septal hypertrophy (21mm). Late gadolinium enhancement noted in anteroseptal segment.",
+    },
+    {
+      id: "REC-908",
+      patientName: "Elena Rostova",
+      patientId: "#MED-4318",
+      title: "Serum PTH & Ionized Calcium Assay",
+      category: "lab",
+      date: "18 Sep 2026",
+      doctor: "Dr. Ramesh Varma, MD",
+      size: "1.1 MB",
+      status: "Verified",
+      findings: "Intact PTH: 92 pg/mL (Elevated). Ionized Calcium: 5.4 mg/dL. Recommending calcitriol titration.",
+    },
+    {
+      id: "REC-909",
+      patientName: "Liam Vance",
+      patientId: "#MED-1829",
+      title: "Holter Monitor 48-Hour Continuous Telemetry",
+      category: "imaging",
+      date: "14 Sep 2026",
+      doctor: "Dr. Ramesh Varma, MD",
+      size: "9.6 MB",
+      status: "Verified",
+      findings: "Underlying sinus rhythm with 4 brief paroxysmal AF episodes (longest 42 sec). Average HR 74 bpm.",
+    },
+    {
+      id: "REC-910",
+      patientName: "Sophia Martinez",
+      patientId: "#MED-2764",
+      title: "Aldosterone-to-Renin Ratio & Electrolytes",
+      category: "lab",
+      date: "10 Sep 2026",
+      doctor: "Dr. Ramesh Varma, MD",
+      size: "2.1 MB",
+      status: "Verified",
+      findings: "ARR: 14 (Normal, primary aldosteronism ruled out). Potassium: 4.1 mEq/L (Within normal range).",
+    },
   ]);
+
+  // Reset page when category or search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeCategory]);
 
   const filteredRecords = recordsList.filter((r) => {
     const matchesSearch =
@@ -110,6 +165,13 @@ const Records = () => {
     if (activeCategory === "all") return true;
     return r.category === activeCategory;
   });
+
+  const ITEMS_PER_PAGE = 8;
+  const totalPages = Math.max(1, Math.ceil(filteredRecords.length / ITEMS_PER_PAGE));
+  const paginatedRecords = filteredRecords.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const handleDownload = (record) => {
     showToast(`Downloading secure encrypted PDF for ${record.title}...`);
@@ -274,6 +336,16 @@ const Records = () => {
             ))
           )}
         </div>
+
+        {/* Pagination Controls */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredRecords.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+          onPageChange={setCurrentPage}
+          itemName="records"
+        />
       </div>
 
       {/* Report Preview Modal */}

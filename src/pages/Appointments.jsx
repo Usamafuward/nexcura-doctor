@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Calendar as CalendarIcon,
   Clock,
@@ -15,7 +15,8 @@ import {
   FileText
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
+import { Pagination } from "@/components/common/Pagination";
 
 const Appointments = () => {
   const {
@@ -27,6 +28,7 @@ const Appointments = () => {
 
   const [activeFilter, setActiveFilter] = useState("all"); // 'all', 'today', 'video', 'in-person'
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [appointmentsList, setAppointmentsList] = useState([
     {
@@ -101,7 +103,84 @@ const Appointments = () => {
       patientId: "#MED-4318",
       phone: "+1 (555) 789-0123",
     },
+    {
+      id: "APT-107",
+      patientName: "Marcus Sterling",
+      date: "09 Oct 2026",
+      time: "01:15 PM",
+      duration: "45 mins",
+      type: "In-Person",
+      specialty: "Hypertrophic Cardiomyopathy",
+      status: "Checked In",
+      patientId: "#MED-3891",
+      phone: "+1 (555) 890-1234",
+    },
+    {
+      id: "APT-108",
+      patientName: "Sophia Martinez",
+      date: "09 Oct 2026",
+      time: "02:00 PM",
+      duration: "30 mins",
+      type: "Video Call",
+      specialty: "Hypertension Titration",
+      status: "Confirmed",
+      patientId: "#MED-2764",
+      phone: "+1 (555) 901-2345",
+    },
+    {
+      id: "APT-109",
+      patientName: "Liam Vance",
+      date: "10 Oct 2026",
+      time: "09:30 AM",
+      duration: "30 mins",
+      type: "In-Person",
+      specialty: "Atrial Fibrillation Follow-up",
+      status: "Pending",
+      patientId: "#MED-1829",
+      phone: "+1 (555) 012-3456",
+    },
+    {
+      id: "APT-110",
+      patientName: "Grace Harper",
+      date: "10 Oct 2026",
+      time: "11:00 AM",
+      duration: "30 mins",
+      type: "Video Call",
+      specialty: "Preventative Lipid Profile",
+      status: "Confirmed",
+      patientId: "#MED-9943",
+      phone: "+1 (555) 123-7890",
+    },
+    {
+      id: "APT-111",
+      patientName: "Noah Henderson",
+      date: "10 Oct 2026",
+      time: "02:30 PM",
+      duration: "45 mins",
+      type: "In-Person",
+      specialty: "Post-Infarct Cardiac Rehab",
+      status: "Confirmed",
+      patientId: "#MED-8812",
+      phone: "+1 (555) 234-5671",
+    },
+    {
+      id: "APT-112",
+      patientName: "Aaliyah Brooks",
+      date: "10 Oct 2026",
+      time: "03:45 PM",
+      duration: "30 mins",
+      type: "Video Call",
+      specialty: "Heart Failure Remote Vitals",
+      status: "Confirmed",
+      patientId: "#MED-7734",
+      phone: "+1 (555) 345-6712",
+    },
   ]);
+
+  // Reset to first page when search or filter criteria change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeFilter]);
 
   const filteredAppointments = appointmentsList.filter((apt) => {
     const matchesSearch =
@@ -115,6 +194,13 @@ const Appointments = () => {
     if (activeFilter === "in-person") return apt.type === "In-Person";
     return true;
   });
+
+  const ITEMS_PER_PAGE = 8;
+  const totalPages = Math.max(1, Math.ceil(filteredAppointments.length / ITEMS_PER_PAGE));
+  const paginatedAppointments = filteredAppointments.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const handleCancelApt = (id, patient) => {
     setAppointmentsList((prev) => prev.filter((a) => a.id !== id));
@@ -247,7 +333,7 @@ const Appointments = () => {
               No matching appointments found.
             </div>
           ) : (
-            filteredAppointments.map((apt) => (
+            paginatedAppointments.map((apt) => (
               <motion.div
                 key={apt.id}
                 whileHover={{ x: 3 }}
@@ -364,6 +450,16 @@ const Appointments = () => {
             ))
           )}
         </div>
+
+        {/* Pagination Controls */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredAppointments.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+          onPageChange={setCurrentPage}
+          itemName="appointments"
+        />
       </div>
     </motion.div>
   );

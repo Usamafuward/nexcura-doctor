@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import doctor from "../../assets/doctor.png";
 import logo from "../../assets/logo.png";
-import { useApp } from "../../context/SidebarContext";
+import { useApp } from "../../context/AppContext";
 
 export const Navbar = () => {
   const navigate = useNavigate();

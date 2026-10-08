@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Pill, ShieldCheck, AlertCircle, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 export const QuickRxModal = () => {
   const { activeRxModal, setActiveRxModal, showToast } = useApp();

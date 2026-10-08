@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X, Calendar, Clock, User, Video, MapPin, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useApp } from "@/context/SidebarContext";
+import { useApp } from "@/context/AppContext";
 
 export const NewAppointmentModal = () => {
   const { isNewAppointmentModalOpen, setNewAppointmentModalOpen, showToast } = useApp();
