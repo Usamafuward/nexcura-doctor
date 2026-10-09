@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Navbar from "@/components/layout/Navbar";
+import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import TeleconsultationModal from "@/components/modals/TeleconsultationModal";
 import EHRDrawer from "@/components/modals/EHRDrawer";
 import QuickRxModal from "@/components/modals/QuickRxModal";
@@ -16,13 +17,13 @@ const Layout = ({ children }) => {
       {/* Floating Top Nav Bar matching video */}
       <Navbar />
 
-      {/* Main Board Container with reduced top gap */}
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-1 sm:pt-2 pb-5 relative z-10">
+      {/* Main Board Container with mobile-safe bottom padding */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 pt-1 sm:pt-2 pb-24 md:pb-5 relative z-10">
         {children}
       </main>
 
       {/* Floating Rounded App Footer matching Header design */}
-      <footer className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-2 relative z-10 mt-auto">
+      <footer className="w-full max-w-[1600px] mx-auto px-3.5 sm:px-6 lg:px-8 pb-24 md:pb-6 pt-2 relative z-10 mt-auto">
         <div className="px-5 py-2.5 rounded-2xl sm:rounded-full bg-[#121722]/90 backdrop-blur-xl border border-[#1C2436] shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8E99A8] font-mono hover:border-[#28354E] transition-all">
           {/* Left: Brand + Status Pill */}
           <div className="flex items-center gap-2.5">
@@ -49,6 +50,9 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Bottom Navigation Bar (Visible on mobile/tablet screens < 768px) */}
+      <MobileBottomNav />
 
       {/* Interactive Overlays & Modals */}
       <TeleconsultationModal />

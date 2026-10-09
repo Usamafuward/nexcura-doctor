@@ -83,25 +83,26 @@ export const TeleconsultationModal = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 15 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="relative w-full max-w-6xl h-[92vh] bg-[#0C0F17] rounded-3xl border border-[#1C2436] shadow-2xl flex flex-col overflow-hidden text-white"
+            className="relative w-full max-w-6xl h-[96vh] sm:h-[92vh] bg-[#0C0F17] rounded-3xl border border-[#1C2436] shadow-2xl flex flex-col overflow-hidden text-white"
           >
             {/* Top Telehealth Status Bar */}
-            <div className="flex items-center justify-between px-6 py-4 bg-[#121722] border-b border-[#1C2436]">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-[#D4FF00]/10 text-[#D4FF00] border border-[#D4FF00]/30 px-3 py-1 rounded-full text-xs font-mono font-medium">
-                  <span className="w-2 h-2 rounded-full bg-[#D4FF00] animate-pulse" />
-                  <span>LIVE ENCRYPTED STREAM</span>
+            <div className="flex items-center justify-between px-3.5 py-2.5 sm:px-6 sm:py-4 bg-[#121722] border-b border-[#1C2436]">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-[#D4FF00]/10 text-[#D4FF00] border border-[#D4FF00]/30 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono font-medium">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#D4FF00] animate-pulse" />
+                  <span className="hidden sm:inline">LIVE ENCRYPTED STREAM</span>
+                  <span className="sm:hidden">LIVE</span>
                 </div>
-                <span className="text-sm font-semibold text-white">
-                  {activeTeleconsultation.patientName} (Age: {activeTeleconsultation.age || 32}, {activeTeleconsultation.problem || "Internal Medicine"})
+                <span className="text-xs sm:text-sm font-semibold text-white truncate max-w-[160px] sm:max-w-none">
+                  {activeTeleconsultation.patientName}
                 </span>
                 <span className="text-xs text-[#8E99A8] font-mono hidden md:inline px-2.5 py-0.5 rounded-full bg-[#0D111A] border border-[#1C2436]">
                   Session ID: #TC-2026-904
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="font-mono text-xs px-3 py-1.5 bg-[#080B11] rounded-full text-[#D4FF00] border border-[#1C2436] font-semibold flex items-center gap-1.5">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="font-mono text-[11px] sm:text-xs px-2.5 py-1 sm:px-3 sm:py-1.5 bg-[#080B11] rounded-full text-[#D4FF00] border border-[#1C2436] font-semibold flex items-center gap-1.5">
                   <span>⏱</span>
                   <span>{formatTime(duration)}</span>
                 </div>
@@ -117,9 +118,9 @@ export const TeleconsultationModal = () => {
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-y-auto lg:overflow-hidden">
               {/* Left: Video & Telemetry HUD (8 cols) */}
-              <div className="lg:col-span-8 flex flex-col bg-[#080B11] relative overflow-hidden p-4">
+              <div className="lg:col-span-8 flex flex-col bg-[#080B11] relative overflow-hidden p-3 sm:p-4 min-h-[380px] lg:min-h-0">
                 {/* Simulated Patient Video Stream */}
                 <div className="relative flex-1 w-full rounded-2xl overflow-hidden bg-gradient-to-b from-[#0D111A] to-[#080B11] border border-[#1C2436] flex items-center justify-center">
                   {isVideoOn ? (

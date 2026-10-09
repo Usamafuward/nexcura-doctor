@@ -110,7 +110,7 @@ export const PhysicianCommandDock = () => {
   ];
 
   return (
-    <div className="h-full p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl flex flex-col hover:border-[#28354E] transition-colors">
+    <div className="h-full p-4 sm:p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl flex flex-col hover:border-[#28354E] transition-colors">
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-[#1C2436]/80">
         <div>
@@ -131,7 +131,7 @@ export const PhysicianCommandDock = () => {
       </div>
 
       {/* 6 Action Tiles Grid (2 cols x 3 rows) - flex-1 with uniform distribution */}
-      <div className="grid grid-cols-2 gap-3 my-3.5 flex-1">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 my-3.5 flex-1">
         {dockActions.map((action) => {
           const Icon = action.icon;
           return (
@@ -141,7 +141,7 @@ export const PhysicianCommandDock = () => {
               whileTap={{ scale: 0.96 }}
               transition={{ type: "spring", stiffness: 420, damping: 24 }}
               onClick={action.onClick}
-              className={`p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] ${action.hoverBorder} ${action.hoverShadow} text-left transition-[border-color,box-shadow] duration-200 group flex flex-col justify-between h-full min-h-[96px]`}
+              className={`p-3 sm:p-3.5 rounded-2xl bg-[#0D111A] border border-[#1C2436] ${action.hoverBorder} ${action.hoverShadow} text-left transition-[border-color,box-shadow] duration-200 group flex flex-col justify-between h-full min-h-[90px] sm:min-h-[96px]`}
             >
               <div className="flex items-center justify-between w-full">
                 <div

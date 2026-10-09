@@ -207,7 +207,7 @@ const Records = () => {
       </div>
 
       {/* Main Records Container */}
-      <div className="p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl">
+      <div className="p-4 sm:p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl">
         {/* Controls: Search + Filter Tabs */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-6 border-b border-[#1C2436]">
           {/* Search Bar */}
@@ -223,7 +223,7 @@ const Records = () => {
           </div>
 
           {/* Filter Pills with sliding layout indicator */}
-          <div className="flex items-center gap-1 overflow-x-auto bg-[#0D111A] p-1 rounded-full border border-[#1C2436] text-xs font-mono relative">
+          <div className="flex items-center gap-1 overflow-x-auto max-w-full bg-[#0D111A] p-1 rounded-full border border-[#1C2436] text-xs font-mono relative">
             {[
               { id: "all", label: "All Records" },
               { id: "lab", label: "Pathology (Lab)" },
@@ -235,7 +235,7 @@ const Records = () => {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className="relative px-3.5 py-1.5 rounded-full text-xs transition-colors z-10 block"
+                  className="relative px-3.5 py-1.5 rounded-full text-xs transition-colors z-10 block whitespace-nowrap"
                 >
                   {isActive && (
                     <motion.div
@@ -274,7 +274,7 @@ const Records = () => {
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-bold text-sm text-white group-hover:text-[#D4FF00] transition-colors">
                         {record.title}
                       </h3>

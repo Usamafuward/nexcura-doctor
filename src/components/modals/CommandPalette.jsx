@@ -137,7 +137,7 @@ export const CommandPalette = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/75 backdrop-blur-md p-4"
+          className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 bg-black/75 backdrop-blur-md p-3 sm:p-4"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: -15 }}
@@ -147,15 +147,15 @@ export const CommandPalette = () => {
             className="w-full max-w-2xl bg-[#121722] rounded-3xl shadow-2xl border border-[#1C2436] overflow-hidden text-white flex flex-col"
           >
             {/* Search Input Bar */}
-            <div className="flex items-center px-4 py-4 border-b border-[#1C2436] bg-[#0D111A]">
-              <Search className="w-5 h-5 text-[#D4FF00] shrink-0 mr-3" />
+            <div className="flex items-center px-3.5 py-3 sm:px-4 sm:py-4 border-b border-[#1C2436] bg-[#0D111A]">
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4FF00] shrink-0 mr-2.5 sm:mr-3" />
               <input
                 type="text"
                 autoFocus
-                placeholder="Search patients, tele-actions, appointments, or medications... (⌘K / Ctrl + K)"
+                placeholder="Search patients, records, commands... (⌘K)"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none text-sm focus:outline-none placeholder-[#8E99A8] text-white"
+                className="flex-1 bg-transparent border-none text-xs sm:text-sm focus:outline-none placeholder-[#8E99A8] text-white"
               />
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 90 }}

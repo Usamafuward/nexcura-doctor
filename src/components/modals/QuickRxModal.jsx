@@ -51,20 +51,20 @@ export const QuickRxModal = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3 sm:p-4"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: "spring", stiffness: 400, damping: 28 }}
-            className="w-full max-w-lg bg-[#121722] rounded-3xl shadow-2xl border border-[#1C2436] overflow-hidden text-white"
+            className="w-full max-w-lg max-h-[92vh] flex flex-col bg-[#121722] rounded-3xl shadow-2xl border border-[#1C2436] overflow-hidden text-white"
           >
             {/* Header */}
-            <div className="p-5 bg-[#0D111A] border-b border-[#1C2436] flex items-center justify-between">
+            <div className="p-4 sm:p-5 bg-[#0D111A] border-b border-[#1C2436] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-2xl bg-[#181F2E] border border-[#232D42] text-[#D4FF00]">
-                  <Pill className="w-5 h-5 stroke-[2.5]" />
+                <div className="p-2 sm:p-2.5 rounded-2xl bg-[#181F2E] border border-[#232D42] text-[#D4FF00]">
+                  <Pill className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
                 </div>
                 <div>
                   <h3 className="font-bold text-sm text-white">Issue Digital Prescription (e-Rx)</h3>
@@ -81,7 +81,7 @@ export const QuickRxModal = () => {
               </motion.button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1">
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8E99A8] mb-1.5">
                   Medication / Active Substance

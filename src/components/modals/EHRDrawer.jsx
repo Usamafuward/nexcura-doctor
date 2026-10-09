@@ -22,23 +22,23 @@ export const EHRDrawer = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 350, damping: 35 }}
-            className="w-full max-w-2xl bg-[#0C0F17] h-full shadow-2xl border-l border-[#1C2436] flex flex-col text-white overflow-hidden"
+            className="w-full max-w-full sm:max-w-2xl bg-[#0C0F17] h-full shadow-2xl border-l border-[#1C2436] flex flex-col text-white overflow-hidden"
           >
             {/* Header */}
-            <div className="p-6 bg-[#121722] border-b border-[#1C2436] flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#181F2E] border-2 border-[#D4FF00] shadow-lime-sm flex items-center justify-center text-xl font-extrabold text-[#D4FF00]">
+            <div className="p-4 sm:p-6 bg-[#121722] border-b border-[#1C2436] flex items-center justify-between">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#181F2E] border-2 border-[#D4FF00] shadow-lime-sm flex items-center justify-center text-lg sm:text-xl font-extrabold text-[#D4FF00] shrink-0">
                   {patient.name ? patient.name.slice(0, 2).toUpperCase() : "PT"}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-bold text-white">{patient.name || patient.patientName}</h2>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h2 className="text-base sm:text-lg font-bold text-white">{patient.name || patient.patientName}</h2>
                     <span className="text-xs bg-[#0D111A] text-[#D4FF00] border border-[#1C2436] px-2.5 py-0.5 rounded-full font-mono">
                       {patient.id || "#MED-8041"}
                     </span>
                   </div>
-                  <p className="text-xs text-[#8E99A8] mt-1">
-                    Age: {patient.age || 32} • Gender: {patient.gender || "Male"} • Blood: O+ • Contact: {patient.contact || "+1 (555) 234-8900"}
+                  <p className="text-[11px] sm:text-xs text-[#8E99A8] mt-1">
+                    Age: {patient.age || 32} • Gender: {patient.gender || "Male"} • Blood: O+
                   </p>
                 </div>
               </div>
@@ -46,14 +46,14 @@ export const EHRDrawer = () => {
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setActiveEHRDrawer(null)}
-                className="w-8 h-8 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-[#8E99A8] hover:text-white border border-[#232D42] flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-[#8E99A8] hover:text-white border border-[#232D42] flex items-center justify-center transition-colors shrink-0 ml-2"
               >
                 <X className="w-4 h-4" />
               </motion.button>
             </div>
 
             {/* Action quick bar */}
-            <div className="p-3 bg-[#080B11] flex items-center justify-between gap-2.5 border-b border-[#1C2436]">
+            <div className="p-3 bg-[#080B11] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 sm:gap-2.5 border-b border-[#1C2436]">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -61,7 +61,7 @@ export const EHRDrawer = () => {
                   setActiveTeleconsultation(patient);
                   setActiveEHRDrawer(null);
                 }}
-                className="flex-1 py-2 px-3 bg-[#D4FF00] hover:bg-[#CCFF00] text-black text-xs font-bold rounded-full flex items-center justify-center gap-1.5 shadow-lime-sm transition-all"
+                className="flex-1 min-w-[140px] py-2 px-3 bg-[#D4FF00] hover:bg-[#CCFF00] text-black text-xs font-bold rounded-full flex items-center justify-center gap-1.5 shadow-lime-sm transition-all"
               >
                 <Activity className="w-4 h-4 stroke-[2.5]" /> Start Video Exam
               </motion.button>
@@ -71,7 +71,7 @@ export const EHRDrawer = () => {
                 onClick={() => {
                   setActiveRxModal(patient);
                 }}
-                className="flex-1 py-2 px-3 bg-[#181F2E] hover:bg-[#232D42] text-white text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border border-[#232D42] transition-all"
+                className="flex-1 min-w-[140px] py-2 px-3 bg-[#181F2E] hover:bg-[#232D42] text-white text-xs font-semibold rounded-full flex items-center justify-center gap-1.5 border border-[#232D42] transition-all"
               >
                 <Pill className="w-4 h-4 text-[#D4FF00]" /> New Prescription
               </motion.button>
@@ -87,7 +87,7 @@ export const EHRDrawer = () => {
             </div>
 
             {/* Drawer Body */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
               {/* Vitals Snapshot */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#8E99A8] mb-3 flex items-center gap-1.5">

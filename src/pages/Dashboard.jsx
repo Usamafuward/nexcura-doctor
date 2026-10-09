@@ -68,13 +68,13 @@ const Dashboard = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="space-y-6"
+      className="space-y-4 sm:space-y-6"
     >
       {/* 1. Physician Shift & Capacity Telemetry HUD (4 Metric Cards) */}
       <ShiftCapacityHUD />
 
       {/* 2. Top Grid: Left Summary Card (4 cols) & Dominant Signature Electric Chart (8 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
         <div className="lg:col-span-4 flex flex-col">
           <LeftSummaryCard onOpenBilling={() => showToast("Opening Physician Billings modal...")} />
         </div>
@@ -84,7 +84,7 @@ const Dashboard = () => {
       </div>
 
       {/* 3. Diagnostic Metrics Grid: 3 Equal-Sized Modular Cards from the Video */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 items-stretch">
         {/* Card 1: Colorful Triage Blocks */}
         <TriageBlocksCard stats={triageStats} />
 
@@ -102,7 +102,7 @@ const Dashboard = () => {
       </div>
 
       {/* 4. Clinical Telemetry & Command Bay: 8 cols Bedside Monitor & 4 cols Command Dock */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
         <div className="lg:col-span-8 flex flex-col">
           <LiveBedsideTelemetryCard />
         </div>
@@ -112,7 +112,7 @@ const Dashboard = () => {
       </div>
 
       {/* 5. Clinical Operations & Safety Deck: 3 Equal-Sized Modular Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 items-stretch">
         {/* Card 1: Today's Active Consultations Queue */}
         <ConsultationsQueueCard />
 

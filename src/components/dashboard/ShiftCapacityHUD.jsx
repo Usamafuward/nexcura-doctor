@@ -19,7 +19,7 @@ export const ShiftCapacityHUD = () => {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"
     >
       {/* Metric 1: Shift Progress */}
       <motion.div

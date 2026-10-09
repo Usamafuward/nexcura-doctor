@@ -27,7 +27,7 @@ export const ArcGaugeCard = ({ score = 84, onOpenDetail }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
-      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 text-white shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors h-full"
+      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-4 sm:p-5 text-white shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors h-full"
     >
       {/* Top Header */}
       <div className="flex items-center justify-between mb-1">
@@ -45,7 +45,7 @@ export const ArcGaugeCard = ({ score = 84, onOpenDetail }) => {
       </div>
 
       {/* Main Score and Semi-circle Arc Gauge */}
-      <div className="flex items-center justify-between gap-4 my-auto">
+      <div className="flex items-center justify-between gap-3 sm:gap-4 my-auto">
         <div>
           <div className="flex items-baseline gap-1.5 font-mono">
             <motion.span
@@ -59,13 +59,13 @@ export const ArcGaugeCard = ({ score = 84, onOpenDetail }) => {
             </motion.span>
             <span className="text-xs text-[#8E99A8] font-bold">/ 100</span>
           </div>
-          <div className="text-[11px] text-[#8E99A8] mt-1">
+          <div className="text-[10px] sm:text-[11px] text-[#8E99A8] mt-1">
             Cohort health outcome rating
           </div>
         </div>
 
         {/* Semi-Circle Arc SVG Gauge */}
-        <div className="relative w-44 h-24 flex items-center justify-center">
+        <div className="relative w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
           <svg viewBox="0 0 190 95" className="w-full h-full overflow-visible">
             {/* Background Track */}
             <path

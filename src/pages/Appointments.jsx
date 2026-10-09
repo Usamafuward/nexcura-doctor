@@ -237,54 +237,54 @@ const Appointments = () => {
       </div>
 
       {/* KPI Overview Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
         <motion.div
           whileHover={{ y: -3, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-[#D4FF00]/40 transition-colors"
+          className="p-3 sm:p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-[#D4FF00]/40 transition-colors"
         >
           <div className="text-xs text-[#8E99A8]">Today&apos;s Schedule</div>
-          <div className="text-2xl font-bold font-mono text-[#D4FF00] mt-1">4</div>
+          <div className="text-xl sm:text-2xl font-bold font-mono text-[#D4FF00] mt-1">4</div>
           <div className="text-[10px] text-slate-400 mt-0.5">2 Video • 2 In-Clinic</div>
         </motion.div>
 
         <motion.div
           whileHover={{ y: -3, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-white/40 transition-colors"
+          className="p-3 sm:p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-white/40 transition-colors"
         >
           <div className="text-xs text-[#8E99A8]">Tomorrow</div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">2</div>
+          <div className="text-xl sm:text-2xl font-bold font-mono text-white mt-1">2</div>
           <div className="text-[10px] text-emerald-400 mt-0.5">100% Slot capacity</div>
         </motion.div>
 
         <motion.div
           whileHover={{ y: -3, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-[#38BDF8]/40 transition-colors"
+          className="p-3 sm:p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-[#38BDF8]/40 transition-colors"
         >
           <div className="text-xs text-[#8E99A8]">Virtual Tele-visits</div>
-          <div className="text-2xl font-bold font-mono text-[#38BDF8] mt-1">68%</div>
+          <div className="text-xl sm:text-2xl font-bold font-mono text-[#38BDF8] mt-1">68%</div>
           <div className="text-[10px] text-cyan-400 mt-0.5">Automated SMS links sent</div>
         </motion.div>
 
         <motion.div
           whileHover={{ y: -3, scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-emerald-400/40 transition-colors"
+          className="p-3 sm:p-4 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl hover:border-emerald-400/40 transition-colors"
         >
           <div className="text-xs text-[#8E99A8]">Show-up Rate</div>
-          <div className="text-2xl font-bold font-mono text-emerald-400 mt-1">98.2%</div>
+          <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-400 mt-1">98.2%</div>
           <div className="text-[10px] text-emerald-400 mt-0.5">Low cancellation rate</div>
         </motion.div>
       </div>
 
       {/* Main Appointments Card */}
-      <div className="p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl">
+      <div className="p-4 sm:p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl">
         {/* Controls Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           {/* Filter Pills with sliding layout indicator */}
-          <div className="flex flex-wrap gap-1.5 bg-[#0D111A] p-1 rounded-full border border-[#1C2436] relative">
+          <div className="flex flex-wrap gap-1 sm:gap-1.5 bg-[#0D111A] p-1 rounded-full border border-[#1C2436] relative max-w-full overflow-x-auto">
             {[
               { id: "all", label: "All Appointments" },
               { id: "today", label: "Today (Oct 8)" },
@@ -346,7 +346,7 @@ const Appointments = () => {
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-bold text-sm text-white group-hover:text-[#D4FF00] transition-colors">
                         {apt.patientName}
                       </h3>
@@ -385,7 +385,7 @@ const Appointments = () => {
                 </div>
 
                 {/* Right Action buttons */}
-                <div className="flex items-center gap-2.5 self-end md:self-center">
+                <div className="flex items-center gap-2.5 self-start sm:self-end md:self-center flex-wrap">
                   {apt.type === "Video Call" ? (
                     <motion.button
                       whileHover={{ scale: 1.05 }}

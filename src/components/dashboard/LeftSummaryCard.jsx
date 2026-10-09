@@ -31,7 +31,7 @@ export const LeftSummaryCard = ({ onOpenBilling }) => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-5 sm:p-6 text-white shadow-2xl flex flex-col justify-between h-full hover:border-[#28354E] transition-colors"
+      className="rounded-3xl bg-[#121722] border border-[#1C2436] p-4 sm:p-6 text-white shadow-2xl flex flex-col justify-between h-full hover:border-[#28354E] transition-colors"
     >
       {/* 1. Top Header & Main Big Metric */}
       <div>
@@ -55,12 +55,12 @@ export const LeftSummaryCard = ({ onOpenBilling }) => {
         </div>
 
         {/* Big Bold Headline Number with Pill */}
-        <div className="flex items-baseline gap-3 my-2">
+        <div className="flex items-baseline gap-2 sm:gap-3 my-2 flex-wrap">
           <motion.span
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-extrabold font-mono text-white tracking-tight"
+            className="text-2xl sm:text-4xl font-extrabold font-mono text-white tracking-tight"
           >
             $32,406.94
           </motion.span>

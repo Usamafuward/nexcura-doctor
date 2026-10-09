@@ -24,7 +24,7 @@ export const AICopilotWidget = () => {
   };
 
   return (
-    <div className="h-full p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors">
+    <div className="h-full p-4 sm:p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl flex flex-col justify-between hover:border-[#28354E] transition-colors">
       <div>
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[#1C2436]/80">

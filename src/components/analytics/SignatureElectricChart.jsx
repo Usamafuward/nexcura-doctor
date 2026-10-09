@@ -104,7 +104,7 @@ export const SignatureElectricChart = ({ onReroll }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-      className="relative rounded-3xl bg-[#121722] border border-[#1C2436] p-5 sm:p-6 text-white shadow-2xl flex flex-col justify-between overflow-hidden hover:border-[#28354E] transition-colors h-full"
+      className="relative rounded-3xl bg-[#121722] border border-[#1C2436] p-4 sm:p-6 text-white shadow-2xl flex flex-col justify-between overflow-hidden hover:border-[#28354E] transition-colors h-full"
     >
       {/* Soft background radial ambient glow in top corner */}
       <div className="absolute top-0 right-1/4 w-96 h-48 bg-[#D4FF00]/5 rounded-full blur-3xl pointer-events-none" />
@@ -136,7 +136,7 @@ export const SignatureElectricChart = ({ onReroll }) => {
         </div>
 
         {/* Right Controls: Filters Dropdown, Time Range Pill, Re-roll button */}
-        <div className="flex items-center gap-2 relative">
+        <div className="flex flex-wrap items-center gap-2 relative">
           {/* Filter Popover Button */}
           <div className="relative">
             <motion.button
@@ -413,7 +413,7 @@ export const SignatureElectricChart = ({ onReroll }) => {
       </div>
 
       {/* Bottom Row of 4 Metric Badge Pills with Colored Indicator Dots */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#1C2436] font-mono text-xs">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-between gap-2 sm:gap-3 pt-3 border-t border-[#1C2436] font-mono text-xs">
         <motion.div
           whileHover={{ scale: 1.04, y: -2 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}

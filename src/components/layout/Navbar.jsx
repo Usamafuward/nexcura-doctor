@@ -131,25 +131,26 @@ export const Navbar = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`w-full px-4 sm:px-8 flex items-center justify-between z-30 sticky top-0 transition-all duration-300 ${
+      className={`w-full z-30 sticky top-0 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#080B11]/90 backdrop-blur-xl border-b border-[#1C2436]/80 shadow-2xl py-4"
+          ? "bg-[#080B11]/90 backdrop-blur-xl border-b border-[#1C2436]/80 shadow-2xl py-3.5 sm:py-4"
           : "bg-transparent border-b border-transparent pt-5 sm:pt-6 pb-3"
       }`}
     >
-      {/* Left: Brand + Pill Navigation Tabs */}
-      <div className="flex items-center gap-3.5 sm:gap-5">
+      <div className="w-full max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
+        {/* Left: Brand + Pill Navigation Tabs */}
+        <div className="flex items-center gap-2 sm:gap-5">
         {/* Brand Logo & Name inside rounded div with no logo background */}
         <motion.div
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => navigate("/")}
-          className="h-11 px-4 py-2 rounded-full bg-[#121722] border border-[#1C2436] hover:border-[#D4FF00]/40 transition-colors cursor-pointer shadow-md flex items-center gap-2.5"
+          className="h-10 sm:h-11 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#121722] border border-[#1C2436] hover:border-[#D4FF00]/40 transition-colors cursor-pointer shadow-md flex items-center gap-2 sm:gap-2.5"
         >
-          <div className="w-7 h-7 rounded-full flex items-center justify-center bg-transparent overflow-hidden flex-shrink-0">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center bg-transparent overflow-hidden flex-shrink-0">
             <img src={logo} alt="Nexcura" className="w-full h-full object-contain" />
           </div>
-          <span className="font-extrabold text-[15px] tracking-wide text-white pr-1">
+          <span className="font-extrabold text-sm sm:text-[15px] tracking-wide text-white pr-0.5 sm:pr-1">
             Nexcura
           </span>
         </motion.div>
@@ -191,13 +192,14 @@ export const Navbar = () => {
       </div>
 
       {/* Right Controls: Search, Tele-Clinic, Notifications & Avatar */}
-      <div className="flex items-center gap-2.5 sm:gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3">
         {/* Command Search Bar */}
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => setCommandPaletteOpen(true)}
-          className="h-11 flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full bg-[#121722] hover:bg-[#181F2E] border border-[#1C2436] text-sm text-[#8E99A8] transition-colors"
+          aria-label="Open Command Search"
+          className="h-10 w-10 sm:w-auto sm:h-11 flex items-center justify-center sm:justify-start gap-2.5 px-0 sm:px-4 py-2 rounded-full bg-[#121722] hover:bg-[#181F2E] border border-[#1C2436] text-sm text-[#8E99A8] transition-colors"
         >
           <Search className="w-4 h-4 text-[#D4FF00]" />
           <span className="hidden sm:inline font-medium">Search...</span>
@@ -218,7 +220,8 @@ export const Navbar = () => {
               problem: "Diabetes Review",
             })
           }
-          className="h-11 px-4 sm:px-5 py-2 rounded-full bg-[#181F2E] hover:bg-[#1F283C] border border-[#D4FF00]/40 text-[#D4FF00] text-sm font-bold font-mono flex items-center gap-2 transition-all shadow-sm"
+          aria-label="Open Tele-Room"
+          className="h-10 w-10 sm:w-auto sm:h-11 px-0 sm:px-5 py-2 rounded-full bg-[#181F2E] hover:bg-[#1F283C] border border-[#D4FF00]/40 text-[#D4FF00] text-sm font-bold font-mono flex items-center justify-center gap-2 transition-all shadow-sm"
         >
           <Video className="w-4 h-4 stroke-[2.5]" />
           <span className="hidden sm:inline">Tele-Room</span>
@@ -234,11 +237,11 @@ export const Navbar = () => {
               setIsProfileOpen(false);
             }}
             aria-label="Notifications"
-            className="relative w-11 h-11 rounded-full bg-[#121722] hover:bg-[#181F2E] border border-[#1C2436] text-[#8E99A8] hover:text-white transition-colors flex items-center justify-center"
+            className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#121722] hover:bg-[#181F2E] border border-[#1C2436] text-[#8E99A8] hover:text-white transition-colors flex items-center justify-center"
           >
-            <Bell className="w-4.5 h-4.5" />
+            <Bell className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
             {unreadCount > 0 && (
-              <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#D4FF00] shadow-lime-sm animate-pulse" />
+              <span className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 w-2 h-2 rounded-full bg-[#D4FF00] shadow-lime-sm animate-pulse" />
             )}
           </motion.button>
 
@@ -249,7 +252,7 @@ export const Navbar = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="absolute right-0 mt-2 w-80 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl p-4 z-50 text-xs"
+                className="absolute right-0 sm:right-0 mt-2 w-[calc(100vw-1.5rem)] max-w-xs sm:w-80 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl p-4 z-50 text-xs"
               >
                 <div className="flex items-center justify-between pb-2 border-b border-[#1C2436]">
                   <span className="font-bold text-white text-sm">Notifications</span>
@@ -288,13 +291,13 @@ export const Navbar = () => {
               setIsNotificationsOpen(false);
             }}
             aria-label="Doctor Profile Menu"
-            className="h-11 flex items-center gap-2.5 p-1 pl-1.5 pr-3.5 rounded-full bg-[#121722] hover:bg-[#181F2E] border border-[#1C2436] transition-colors"
+            className="h-10 sm:h-11 flex items-center gap-2 p-1 pl-1 pr-1 sm:pl-1.5 sm:pr-3.5 rounded-full bg-[#121722] hover:bg-[#181F2E] border border-[#1C2436] transition-colors"
           >
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#D4FF00]/50 flex-shrink-0">
               <img src={doctor} alt="Dr. Ramesh" className="w-full h-full object-cover" />
             </div>
             <span className="hidden sm:inline text-sm font-bold text-white">Dr. Ramesh</span>
-            <ChevronDown className={`w-3.5 h-3.5 text-[#8E99A8] transition-transform ${isProfileOpen ? "rotate-180" : ""}`} />
+            <ChevronDown className={`hidden sm:inline w-3.5 h-3.5 text-[#8E99A8] transition-transform ${isProfileOpen ? "rotate-180" : ""}`} />
           </motion.button>
 
           <AnimatePresence>
@@ -304,7 +307,7 @@ export const Navbar = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="absolute right-0 mt-2 w-56 rounded-2xl bg-[#121722] border border-[#1C2436] p-3 shadow-2xl z-50 text-xs space-y-2"
+                className="absolute right-0 mt-2 w-[calc(100vw-1.5rem)] max-w-xs sm:w-56 rounded-2xl bg-[#121722] border border-[#1C2436] p-3 shadow-2xl z-50 text-xs space-y-2"
               >
                 <div className="pb-2 border-b border-[#1C2436]">
                   <div className="font-bold text-white">Dr. Ramesh Varma, MD</div>
@@ -350,7 +353,8 @@ export const Navbar = () => {
           </AnimatePresence>
         </div>
       </div>
-    </motion.header>
+    </div>
+  </motion.header>
   );
 };
 

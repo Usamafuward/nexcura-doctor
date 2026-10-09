@@ -212,7 +212,7 @@ export const LiveBedsideTelemetryCard = () => {
   }, [selectedBed]);
 
   return (
-    <div className="h-full p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl flex flex-col hover:border-[#28354E] transition-colors">
+    <div className="h-full p-4 sm:p-6 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl flex flex-col hover:border-[#28354E] transition-colors">
       {/* Top Header: Patient & Bed Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1C2436]/80">
         <div>
@@ -225,8 +225,8 @@ export const LiveBedsideTelemetryCard = () => {
               {selectedBed.lead} • 25 mm/s
             </span>
           </div>
-          <div className="flex items-center gap-2.5 mt-1.5">
-            <h3 className="text-lg font-bold text-white tracking-tight">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-1.5">
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
               {selectedBed.name}
             </h3>
             <span className="text-[10px] font-mono text-[#D4FF00] bg-[#D4FF00]/10 border border-[#D4FF00]/30 px-2.5 py-0.5 rounded-full font-bold">
@@ -245,8 +245,8 @@ export const LiveBedsideTelemetryCard = () => {
         </div>
 
         {/* Bed Switcher Pills */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center bg-[#0D111A] p-1 rounded-full border border-[#1C2436]">
+        <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-1 sm:pb-0">
+          <div className="flex items-center bg-[#0D111A] p-1 rounded-full border border-[#1C2436] shrink-0">
             {BEDS.map((bed) => {
               const isActive = bed.id === selectedBed.id;
               return (
@@ -321,12 +321,12 @@ export const LiveBedsideTelemetryCard = () => {
       </div>
 
       {/* Clinical Telemetry Rhythm Diagnostic Strip */}
-      <div className="mb-3.5 px-3.5 py-2 rounded-xl bg-[#0D111A] border border-[#1C2436] flex items-center justify-between text-[11px] font-mono text-[#8E99A8]">
-        <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
+      <div className="mb-3.5 px-3.5 py-2 rounded-xl bg-[#0D111A] border border-[#1C2436] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-[#8E99A8]">
+        <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
           <div>PR: <strong className="text-white ml-1">{selectedBed.pr}</strong></div>
           <div>QRS: <strong className="text-white ml-1">{selectedBed.qrs}</strong></div>
           <div>QTc: <strong className="text-white ml-1">{selectedBed.qtc}</strong></div>
-          <div className="hidden md:inline">ST Seg: <strong className="text-emerald-400 ml-1">Isoelectric (0.0 mV)</strong></div>
+          <div className="hidden sm:inline">ST Seg: <strong className="text-emerald-400 ml-1">Isoelectric (0.0 mV)</strong></div>
         </div>
         <div className="flex items-center gap-1.5 text-emerald-400 shrink-0">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

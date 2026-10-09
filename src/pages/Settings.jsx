@@ -97,10 +97,10 @@ const Settings = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
         {/* Navigation Sidebar (4 cols) */}
         <div className="lg:col-span-4 space-y-2">
-          <div className="p-5 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl space-y-1.5 relative">
+          <div className="p-2 sm:p-5 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-xl flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-visible relative max-w-full">
             {[
               { id: "profile", label: "Physician Profile & NPI", icon: <User className="w-4 h-4" /> },
               { id: "telehealth", label: "Telemedicine & AI Scribe", icon: <Video className="w-4 h-4" /> },
@@ -113,7 +113,7 @@ const Settings = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className="relative w-full flex items-center gap-3 p-3.5 rounded-2xl text-xs font-semibold transition-colors z-10 text-left"
+                  className="relative shrink-0 lg:w-full flex items-center gap-2 sm:gap-3 px-3 py-2 sm:p-3.5 rounded-2xl text-xs font-semibold transition-colors z-10 text-left whitespace-nowrap lg:whitespace-normal"
                 >
                   {isActive && (
                     <motion.div
@@ -133,8 +133,8 @@ const Settings = () => {
             })}
           </div>
 
-          {/* Quick Doctor Summary Card in Sidebar */}
-          <div className="p-5 rounded-3xl bg-[#121722] border border-[#1C2436] text-xs text-[#8E99A8] space-y-2">
+          {/* Quick Doctor Summary Card in Sidebar (hidden on mobile to prioritize form) */}
+          <div className="hidden lg:block p-5 rounded-3xl bg-[#121722] border border-[#1C2436] text-xs text-[#8E99A8] space-y-2">
             <div className="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4 text-[#D4FF00]" /> Active Verification
             </div>
