@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RefreshCw, Video, UserCheck } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 import LeftSummaryCard from "@/components/dashboard/LeftSummaryCard";
 import SignatureElectricChart from "@/components/analytics/SignatureElectricChart";
@@ -11,10 +11,11 @@ import ShiftCapacityHUD from "@/components/dashboard/ShiftCapacityHUD";
 import PhysicianCommandDock from "@/components/dashboard/PhysicianCommandDock";
 import LiveBedsideTelemetryCard from "@/components/dashboard/LiveBedsideTelemetryCard";
 import AICopilotWidget from "@/components/dashboard/AICopilotWidget";
+import ConsultationsQueueCard from "@/components/dashboard/ConsultationsQueueCard";
 import { useApp } from "@/context/AppContext";
 
 const Dashboard = () => {
-  const { setActiveTeleconsultation, setActiveEHRDrawer, showToast } = useApp();
+  const { showToast } = useApp();
 
   // State to simulate the "One click re-rolls the whole board" feature shown in the video
   const [boardSeed, setBoardSeed] = useState(1);
@@ -82,8 +83,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* 3. Bottom Grid: 3 Equal-Sized Modular Cards from the Video */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* 3. Diagnostic Metrics Grid: 3 Equal-Sized Modular Cards from the Video */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
         {/* Card 1: Colorful Triage Blocks */}
         <TriageBlocksCard stats={triageStats} />
 
@@ -100,130 +101,27 @@ const Dashboard = () => {
         />
       </div>
 
-      {/* 4. Physician Fast-Action Command Dock (Quick Rx, Consult, Tele-Room, Ambient Voice Scribe, Stat Labs, Rapid Code) */}
-      <PhysicianCommandDock />
-
-      {/* 5. Live Bedside Telemetry Monitor (Real-Time ECG Rhythm Waveform & Biometrics HUD) */}
-      <LiveBedsideTelemetryCard />
-
-      {/* 6. Neural AI Clinical Co-Pilot & Pharmacovigilance Intelligence */}
-      <AICopilotWidget />
-
-      {/* 7. Today's Active Consultations Queue Drawer strip */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.35, duration: 0.4 }}
-        className="p-5 rounded-3xl bg-[#121722] border border-[#1C2436] shadow-2xl hover:border-[#28354E] transition-colors"
-      >
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Today&apos;s Active Consultations Queue
-            </h3>
-            <p className="text-xs text-[#8E99A8]">
-              Direct tele-room launchers and EHR chart access
-            </p>
-          </div>
-          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-[#D4FF00] text-black shadow-lime-sm">
-            6 in Queue
-          </span>
+      {/* 4. Clinical Telemetry & Command Bay: 8 cols Bedside Monitor & 4 cols Command Dock */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div className="lg:col-span-8 flex flex-col">
+          <LiveBedsideTelemetryCard />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {/* Patient 1 */}
-          <motion.div
-            whileHover={{ y: -3, scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="p-4 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#D4FF00]/50 transition-colors flex items-center justify-between"
-          >
-            <div>
-              <div className="text-xs font-bold text-white">Kamalesh Patel (32y)</div>
-              <div className="text-[11px] text-[#8E99A8] mt-0.5">Diabetes • 03:00 PM</div>
-              <span className="inline-block mt-1 text-[9px] font-mono font-bold bg-[#D4FF00]/20 text-[#D4FF00] px-1.5 py-0.5 rounded">
-                Virtual Telehealth
-              </span>
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.94 }}
-              onClick={() =>
-                setActiveTeleconsultation({
-                  patientName: "Kamalesh Patel",
-                  age: 32,
-                  problem: "Diabetes Review",
-                })
-              }
-              className="px-3.5 py-1.5 rounded-full bg-[#D4FF00] hover:bg-[#CCFF00] text-black font-bold text-xs flex items-center gap-1 shadow-lime-sm transition-all"
-            >
-              <Video className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Join</span>
-            </motion.button>
-          </motion.div>
-
-          {/* Patient 2 */}
-          <motion.div
-            whileHover={{ y: -3, scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="p-4 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#FF6384]/50 transition-colors flex items-center justify-between"
-          >
-            <div>
-              <div className="text-xs font-bold text-white">Robert Fox (64y)</div>
-              <div className="text-[11px] text-[#FF6384] font-semibold mt-0.5">Chest Tightness • Prioritized</div>
-              <span className="inline-block mt-1 text-[9px] font-mono font-bold bg-[#FF6384]/20 text-[#FF6384] px-1.5 py-0.5 rounded">
-                Emergency Triage
-              </span>
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.94 }}
-              onClick={() =>
-                setActiveEHRDrawer({
-                  name: "Robert Fox",
-                  age: 64,
-                  problem: "Chest Tightness",
-                })
-              }
-              className="px-3.5 py-1.5 rounded-full bg-[#FF6384] hover:bg-[#ff4d73] text-black font-bold text-xs flex items-center gap-1 shadow-sm transition-all"
-            >
-              <UserCheck className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span>Chart</span>
-            </motion.button>
-          </motion.div>
-
-          {/* Patient 3 */}
-          <motion.div
-            whileHover={{ y: -3, scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="p-4 rounded-2xl bg-[#0D111A] border border-[#1C2436] hover:border-[#38BDF8]/50 transition-colors flex items-center justify-between"
-          >
-            <div>
-              <div className="text-xs font-bold text-white">Alice Brown (45y)</div>
-              <div className="text-[11px] text-[#8E99A8] mt-0.5">Hypertension • 03:30 PM</div>
-              <span className="inline-block mt-1 text-[9px] font-mono font-bold bg-[#B5A7FE]/20 text-[#B5A7FE] px-1.5 py-0.5 rounded">
-                In-Clinic Suite 4B
-              </span>
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.94 }}
-              onClick={() =>
-                setActiveEHRDrawer({
-                  name: "Alice Brown",
-                  age: 45,
-                  problem: "Hypertension",
-                })
-              }
-              className="px-3.5 py-1.5 rounded-full bg-[#181F2E] hover:bg-[#232D42] text-slate-200 border border-[#232D42] font-semibold text-xs flex items-center gap-1 transition-all"
-            >
-              <span>Examine</span>
-            </motion.button>
-          </motion.div>
+        <div className="lg:col-span-4 flex flex-col">
+          <PhysicianCommandDock />
         </div>
-      </motion.div>
-      
-      {/* 8. Critical Clinical Priority Sentry Bar (Urgent Lab & Telemetry Flags) */}
-      <CriticalAlertsBar />
+      </div>
+
+      {/* 5. Clinical Operations & Safety Deck: 3 Equal-Sized Modular Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        {/* Card 1: Today's Active Consultations Queue */}
+        <ConsultationsQueueCard />
+
+        {/* Card 2: Neural Drug Safety & Clinical Copilot */}
+        <AICopilotWidget />
+
+        {/* Card 3: Critical Diagnostic Sentry & Alert Dispatch */}
+        <CriticalAlertsBar />
+      </div>
 
       {/* Video's Signature Interactive Caption: "One click re-rolls the whole board" */}
       <motion.div
