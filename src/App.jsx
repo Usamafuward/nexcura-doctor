@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppProvider } from "@/context/AppContext";
+import ScrollToTop from "@/components/common/ScrollToTop";
 import Dashboard from "@/pages/Dashboard";
 import Appointments from "@/pages/Appointments";
 import Patients from "@/pages/Patients";
@@ -10,6 +11,7 @@ import Layout from "@/components/layout/Layout";
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <AppProvider>
         <Layout>
           <Routes>

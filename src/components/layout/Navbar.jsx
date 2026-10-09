@@ -37,6 +37,42 @@ export const Navbar = () => {
 
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
+  const tabRefs = useRef({});
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+
+  const navLinks = [
+    { label: "Overview", path: "/" },
+    { label: "Patients", path: "/patients" },
+    { label: "Appointments", path: "/appointments" },
+    { label: "Records", path: "/records" },
+    { label: "Settings", path: "/settings" },
+  ];
+
+  // Update sliding indicator position based on active tab ref
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activePath = navLinks.some((t) => t.path === location.pathname)
+        ? location.pathname
+        : "/";
+      const activeTabEl = tabRefs.current[activePath];
+      if (activeTabEl) {
+        setIndicatorStyle({
+          left: activeTabEl.offsetLeft,
+          width: activeTabEl.offsetWidth,
+          opacity: 1,
+        });
+      }
+    };
+
+    updateIndicator();
+    const frameId = requestAnimationFrame(updateIndicator);
+    window.addEventListener("resize", updateIndicator);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", updateIndicator);
+    };
+  }, [location.pathname]);
 
   // Dynamic header background on scroll
   useEffect(() => {
@@ -90,14 +126,6 @@ export const Navbar = () => {
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const navLinks = [
-    { label: "Overview", path: "/" },
-    { label: "Patients", path: "/patients" },
-    { label: "Appointments", path: "/appointments" },
-    { label: "Records", path: "/records" },
-    { label: "Settings", path: "/settings" },
-  ];
-
   return (
     <motion.header
       initial={{ opacity: 0 }}
@@ -128,22 +156,32 @@ export const Navbar = () => {
 
         {/* Pill Navigation Tabs with Sliding Layout Indicator */}
         <nav className="hidden md:flex items-center bg-[#121722] p-1 rounded-full border border-[#1C2436] h-11 relative">
+          {/* Persistent Sliding Active Indicator (Strictly horizontal, no vertical scroll artifacts) */}
+          {indicatorStyle.width > 0 && (
+            <motion.div
+              className="absolute top-1 bottom-1 bg-[#D4FF00] rounded-full shadow-lime-sm pointer-events-none"
+              initial={false}
+              animate={{
+                left: indicatorStyle.left,
+                width: indicatorStyle.width,
+                opacity: indicatorStyle.opacity,
+              }}
+              transition={{ type: "spring", stiffness: 450, damping: 35 }}
+            />
+          )}
+
           {navLinks.map((tab) => {
             const isActive = location.pathname === tab.path;
             return (
               <NavLink
                 key={tab.path}
+                ref={(el) => {
+                  tabRefs.current[tab.path] = el;
+                }}
                 to={tab.path}
                 className="relative px-4 sm:px-5 py-2 rounded-full font-semibold transition-colors text-sm z-10 block"
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="navbar-active-pill"
-                    className="absolute inset-0 bg-[#D4FF00] rounded-full shadow-lime-sm -z-10"
-                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                  />
-                )}
-                <span className={isActive ? "text-black font-bold" : "text-[#8E99A8] hover:text-white"}>
+                <span className={isActive ? "text-black font-bold transition-colors" : "text-[#8E99A8] hover:text-white transition-colors"}>
                   {tab.label}
                 </span>
               </NavLink>

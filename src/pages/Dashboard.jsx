@@ -122,29 +122,6 @@ const Dashboard = () => {
         {/* Card 3: Critical Diagnostic Sentry & Alert Dispatch */}
         <CriticalAlertsBar />
       </div>
-
-      {/* Video's Signature Interactive Caption: "One click re-rolls the whole board" */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
-        className="flex items-center justify-between pt-2 px-1 text-xs text-[#8E99A8]"
-      >
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={handleReroll}
-          className="flex items-center gap-2 group text-slate-300 hover:text-[#D4FF00] transition-colors"
-        >
-          <div className="w-6 h-6 rounded-full bg-[#121722] border border-[#1C2436] group-hover:border-[#D4FF00] flex items-center justify-center transition-colors">
-            <RefreshCw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" />
-          </div>
-          <span className="font-mono text-[11px] font-medium tracking-wide">
-            One click re-rolls the whole board
-          </span>
-        </motion.button>
-        <span className="text-[11px] font-mono text-slate-500 hidden sm:inline">Physician: Dr. Ramesh Varma, MD</span>
-      </motion.div>
     </motion.div>
   );
 };
